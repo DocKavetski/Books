@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Рекомендованная литература — для пациента</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #111;
+      --muted: #555;
+      --soft: #666;
+      --rule: #222;
+      --bar: #e8e8e8;
+      --page: #fff;
+      --screen-bg: #f3f1ec;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+    body {
+      margin: 0;
+      font-family: "Noto Serif", "Times New Roman", serif;
+      color: var(--ink);
+      background: var(--screen-bg);
+      line-height: 1.45;
+    }
+
+    .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+      justify-content: center;
+      padding: 0.75rem 1rem;
+      background: rgba(255, 255, 255, 0.92);
+      border-bottom: 1px solid #ddd;
+      backdrop-filter: blur(8px);
+    }
+
+    .toolbar button,
+    .toolbar a {
+      font-family: inherit;
+      font-size: 0.95rem;
+      padding: 0.55rem 1.1rem;
+      border: 1px solid #222;
+      background: #222;
+      color: #fff;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .toolbar a.secondary {
+      background: transparent;
+      color: #222;
+    }
+
+    .sheet {
+      width: min(210mm, 100% - 2rem);
+      margin: 1.25rem auto 2.5rem;
+      background: var(--page);
+      padding: 18mm 16mm 20mm;
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.08);
+    }
+
+    header.doc-header {
+      text-align: center;
+      margin-bottom: 1.1rem;
+    }
+
+    .eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      margin: 0 0 0.55rem;
+      font-weight: 400;
+    }
+
+    h1 {
+      font-size: 1.85rem;
+      font-weight: 700;
+      margin: 0 0 0.35rem;
+      line-height: 1.15;
+    }
+
+    .subtitle {
+      font-style: italic;
+      color: var(--muted);
+      margin: 0 0 0.9rem;
+      font-size: 0.95rem;
+    }
+
+    .intro {
+      font-size: 0.92rem;
+      max-width: 42em;
+      margin: 0 auto 0.9rem;
+      text-align: center;
+    }
+
+    .divider {
+      text-align: center;
+      letter-spacing: 0.35em;
+      margin: 0.7rem 0 1.1rem;
+      color: var(--soft);
+      font-size: 0.85rem;
+    }
+
+    section {
+      margin: 0 0 1rem;
+      break-inside: avoid;
+    }
+
+    .section-title {
+      background: var(--bar);
+      padding: 0.28rem 0.55rem;
+      font-size: 0.98rem;
+      font-weight: 700;
+      margin: 0 0 0.2rem;
+    }
+
+    .section-lead {
+      font-style: italic;
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin: 0 0 0.45rem;
+      padding-left: 0.15rem;
+    }
+
+    .books {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .books li {
+      display: grid;
+      grid-template-columns: 1.1rem 1fr;
+      gap: 0.35rem;
+      margin: 0 0 0.55rem;
+      font-size: 0.9rem;
+      break-inside: avoid;
+    }
+
+    .books .mark {
+      line-height: 1.35;
+    }
+
+    .books .title {
+      font-weight: 700;
+      margin: 0;
+    }
+
+    .books .blurb {
+      margin: 0.08rem 0 0;
+      font-size: 0.86rem;
+      color: var(--ink);
+    }
+
+    .resources li {
+      margin-bottom: 0.35rem;
+    }
+
+    .closing {
+      margin-top: 1.4rem;
+      text-align: center;
+      border-top: 1px solid var(--rule);
+      padding-top: 0.9rem;
+    }
+
+    .closing p {
+      margin: 0.35rem 0;
+      font-size: 0.95rem;
+    }
+
+    .closing .emphasis {
+      font-weight: 700;
+      font-size: 1.05rem;
+    }
+
+    .closing .note {
+      font-size: 0.88rem;
+      max-width: 40em;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .closing .roles {
+      margin-top: 0.85rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--soft);
+    }
+
+    @media screen and (max-width: 700px) {
+      .sheet {
+        width: 100%;
+        margin: 0;
+        padding: 1.25rem 1rem 2rem;
+        box-shadow: none;
+      }
+
+      h1 { font-size: 1.45rem; }
+    }
+
+    @media print {
+      body { background: #fff; }
+
+      .toolbar { display: none !important; }
+
+      .sheet {
+        width: auto;
+        margin: 0;
+        padding: 0;
+        box-shadow: none;
+      }
+
+      a { color: inherit; text-decoration: none; }
+
+      section { break-inside: avoid; }
+    }
+
+    @page {
+      size: A4;
+      margin: 14mm 14mm 16mm;
+    }
+  </style>
+</head>
+<body>
+  <div class="toolbar" role="region" aria-label="Действия">
+    <button type="button" onclick="window.print()">Распечатать</button>
+    <a class="secondary" href="#top">К началу</a>
+  </div>
+
+  <main id="top" class="sheet">
+    <header class="doc-header">
+      <p class="eyebrow">Рекомендованная литература</p>
+      <h1>Книги для чтения и размышления</h1>
+      <p class="subtitle">от вашего врача-психотерапевта, психолога, сексолога</p>
+      <p class="intro">
+        Эта подборка — не список «на прочтение к следующему сеансу». Это библиотека,
+        к которой можно возвращаться в разные периоды жизни: когда тревожно, когда
+        больно, когда хочется понять себя, партнёра или ребёнка. Начинайте с того
+        раздела, который откликается сейчас. Одна книга в месяц — уже много.
+      </p>
+      <p class="divider">* * *</p>
+    </header>
+
+    <section>
+      <h2 class="section-title">1. Основы психологии и психотерапии</h2>
+      <p class="section-lead">С чего начать, если вы впервые открываете для себя эту тему</p>
+      <ul class="books">
+        <li><span class="mark">■</span><div><p class="title">Ирвин Ялом. «Дар психотерапии»</p><p class="blurb">Как устроен разговор с психотерапевтом изнутри — тёплая и человечная книга.</p></div></li>
+        <li><span class="mark">■</span><div><p class="title">Карл Роджерс. «Становление личности»</p><p class="blurb">Классика о принятии себя от одного из отцов гуманистической психологии.</p></div></li>
+        <li><span class="mark">■</span><div><p class="title">Роберт Чалдини. «Психология влияния»</p><p class="blurb">Как нами управляют реклама, близкие и мы сами — и как это замечать.</p></div></li>
+        <li><span class="mark">■</span><div><p class="title">Игнатий Журавлев. «Взламывая психологию»</p><p class="blurb">Лёгкий и наглядный ввод в основные идеи психологии для новичка.</p></div></li>
+      </ul>
+    </section>
+
+    <section>
+      <h2 class="section-title">2. Тревога, стресс и навязчивые мысли</h2>
+      <p class="section-lead">Если сердце частит, мысли не отпускают, а тело живёт «на взводе»</p>
+      <ul class="books">
+        <li><span class="mark">■</span><div><p class="title">Иван Кириллов. «Стресс-серфинг»</p><p class="blurb">Практика российского врача: как не тонуть в стрессе, а «седлать волну».</p></div></li>
+        <li><span class="mark">■</span><div><p class="title">Артем Барышев. «Эмоциональный шторм»</p><p class="blurb">Понятный разбор того, что происходит с эмоциями в моменты перегрузки.</p></div></li>
+        <li><span class="mark">■</span><div><p class="title">Дэвид Бернс. «Тревожные люди»</p><p class="blurb">Рабочая тетрадь КПТ — с упражнениями, которые реально помогают.</p></div></li>
+        <li><span class="mark">■</span><div><p class="title">Роберт Лихи. «Свобода от тревоги»</p><p class="blurb">Пошаговое руководство от одного из ведущих специалистов по тревоге.</p></div></li>
+        <li><span class="mark">■</span><div><p class="title">Марк Уильямс, Дэнни Пенман. «Осознанность»</p><p class="blurb">8-недельная программа mindfulness — научно обоснованная и посильная.</p></div></li>
+        <li><span class="mark">■</span><div><p class="title">Дж. Хэлловэлл. «Не отвлекайте меня»</p><p class="blurb">Для тех, кто «расщеплён» между задачами и не может сосредоточиться.</p></div></li>
+        <li><span class="mark">■</span><div><p class="title">Алексей Прибытков. «Когда мысли лезут в голову»</p><p class="blurb">Про навязчивости — понятно, по-русски, без наукообразия.</p></div></li>
+        <li><span class="mark">■</span><div><p class="title">Джорджио Нардонэ, Джулио Де Сантис. «Патологическое сомнение. Мыслю, следовательно страдаю»</p><p class="blurb">Если вас мучают бесконечные «а вдруг?» и вы не можете остановиться.</p></div></li>
+      </ul>
+    </section>
+
+    <section>
+      <h2 class="section-title">3. Депрессия, выгорание и эмоции</h2>
+      <p class="section-lead">Когда сил нет, всё серо и непонятно, что с этим делать</p>
+      <ul class="books">
+        <li><span class="mark">■</span><div><p class="title">Юлия Пирумова. «Хрупкие люди»</p><p class="blurb">О чувствительности и нарциссической ранимости — с сочувствием, без ярлыков.</p></div></li>
+        <li><span class="mark">■</span><div><p class="title">Мартин Селигман. «Как научиться оптимизму»</p><p class="blurb">Классика позитивной психологии: можно ли натренировать оптимизм.</p></div></li>
+        <li><span class="mark">■</span><div><p class="title">Лоретта Бройнинг. «Гормоны счастья»</p><p class="blurb">Просто и с юмором — о дофамине, серотонине, окситоцине и эндорфинах.</p></div></li>
+        <li><span class="mark">■</span><div><p class="title">Клаус Бернхардт. «Депрессия и выгорание»</p><p class="blurb">Взгляд немецкого практика на выход из «эмоционального нуля».</p></div></li>
+        <li><span class="mark">■</span><div><p class="title">Амелия и Эмили Нагоски. «Выгорание»</p><p class="blurb">Особенно для женщин: почему мы выгораем и как «завершать цикл стресса».</p></div></li>
+        <li><span class="mark">■</span><div><p class="title">Юлия Дремина. «Почему я так реагирую? Причины и польза эмоций»</p><p class="blurb">Знакомство со своими эмоциями — зачем они и как их слушать.</p></div></li>
+      </ul>
+    </section>
+
+    <section>
+      <h2 class="section-title">4. Отношения и коммуникация</h2>
+      <p class="section-lead">Как строить близость, слышать другого и не терять себя</p>
+      <ul class="books">
+        <li><span class="mark">■</span><div><p class="title">Амир Левин, Рэйчел Хеллер. «Подходим друг другу»</p><p class="blurb">Теория привязанности во взрослых отношениях — с тестом на свой тип.</p></div></li>
+        <li><span class="mark">■</span><div><p class="title">Эрик Берн. «Игры, в которые играют люди»</p><p class="blurb">Классика: какие сценарии мы повторяем в общении, не замечая этого.</p></div></li>
+        <li><span class="mark">■</span><div><p class="title">Маршалл Розенберг. «Ненасильственное общение»</p><p class="blurb">Как говорить о важном без обвинений — язык, который меняет отношения.</p></div></li>
+        <li><span class="mark">■</span><div><p class="title">Сью Джонсон. «Чувство любви»</p><p class="blurb">Эмоционально-фокусированная терапия пар — одна из лучших книг о любви.</p></div></li>
+        <li><span class="mark">■</span><div><p class="title">Марина Травкова. «Почему любимые изменяют, стоит ли прощать, можно ли избежать»</p><p class="blurb">Тактично и по-взрослому об измене — от российского секс-терапевта.</p></div></li>
+        <li><span class="mark">■</span><div><p class="title">Никита Непряхин. «Я манипулирую тобой»</p><p class="blurb">Как распознавать манипуляции и мягко им противостоять.</p></div></li>
+        <li><span class="mark">■</span><div><p class="title">Мелоди Битти. «Спасать или спасаться?»</p><p class="blurb">Библия темы созависимости — если вы всегда «за других больше, чем за себя».</p></div></li>
+        <li><span class="mark">■</span><div><p class="title">Хамид Пезешкиан, Конни Фойгт. «Психовампиры»</p><p class="blurb">Про людей, рядом с которыми «утекает энергия», и как ставить границы.</p></div></li>
+        <li><span class="mark">■</span><div><p class="title">Стефани Качиоппо. «Там, где рождается любовь»</p><p class="blurb">Нейробиолог о том, как любовь буквально меняет мозг.</p></div></li>
+      </ul>
+    </section>
+
+    <section>
+      <h2 class="section-title">5. Сексуальность и интимность</h2>
+      <p class="section-lead">О желании, теле и близости — без стыда и мифов</p>
+      <ul class="books">
+        <li><span class="mark">■</span><div><p class="title">Эмили Нагоски. «Как хочет женщина»</p><p class="blurb">Возможно, лучшая современная книга о женской сексуальности. Настоятельно.</p></div></li>
+        <li><span class="mark">■</span><div><p class="title">Эстер Перель. «Размножение в неволе»</p><p class="blurb">Почему в долгих отношениях гаснет эротика — и что с этим делать.</p></div></li>
+        <li><span class="mark">■</span><div><p class="title">Йен Кернер. «Она кончает первой»</p><p class="blurb">Практическое пособие для пар о женском удовольствии.</p></div></li>
+        <li><span class="mark">■</span><div><p class="title">Барри и Эмили Маккарти. «Новый мужской сексуальный опыт»</p><p class="blurb">О мужской сексуальности взрослого возраста — честно и по-медицински точно.</p></div></li>
+        <li><span class="mark">■</span><div><p class="title">Дэвид Шнарх. «Страсть и супружество»</p><p class="blurb">Глубокая книга о зрелой сексуальности в длительных отношениях. Для мотивированных читателей.</p></div></li>
+      </ul>
+    </section>
+
+    <section>
+      <h2 class="section-title">6. Самооценка и путь к себе</h2>
+      <p class="section-lead">Про уверенность, самоценность и собственный голос</p>
+      <ul class="books">
+        <li><span class="mark">■</span><div><p class="title">Натаниэль Бранден. «Шесть столпов самооценки»</p><p class="blurb">Классика: на чём стоит устойчивая самооценка — и как её выращивать.</p></div></li>
+        <li><span class="mark">■</span><div><p class="title">Брене Браун. «Дары несовершенства»</p><p class="blurb">О праве быть неидеальным — тепло и по-человечески.</p></div></li>
+        <li><span class="mark">■</span><div><p class="title">Кристин Нефф. «Самосострадание»</p><p class="blurb">Как относиться к себе так же бережно, как к близкому другу.</p></div></li>
+        <li><span class="mark">■</span><div><p class="title">Расс Хэррис. «Ловушка счастья»</p><p class="blurb">ACT-подход: перестать «искать счастье» и начать жить свою жизнь.</p></div></li>
+        <li><span class="mark">■</span><div><p class="title">Виктор Франкл. «Человек в поисках смысла»</p><p class="blurb">Книга, прошедшая проверку Освенцимом. О том, ради чего стоит жить.</p></div></li>
+        <li><span class="mark">■</span><div><p class="title">Лиля Град. «Танцуйте свою жизнь»</p><p class="blurb">Эссе о праве жить своим темпом — для тех, кто устал соответствовать.</p></div></li>
+        <li><span class="mark">■</span><div><p class="title">Юлия Пирумова. «Все дороги ведут к себе»</p><p class="blurb">О возвращении к себе после долгих лет «жизни для других».</p></div></li>
+      </ul>
+    </section>
+
+    <section>
+      <h2 class="section-title">7. Травма и работа с прошлым</h2>
+      <p class="section-lead">Если прошлое до сих пор откликается в теле и отношениях</p>
+      <ul class="books">
+        <li><span class="mark">■</span><div><p class="title">Бессел ван дер Колк. «Тело помнит всё»</p><p class="blurb">Главная книга последнего десятилетия о том, как травма живёт в теле.</p></div></li>
+        <li><span class="mark">■</span><div><p class="title">Питер Левин. «Пробуждение тигра»</p><p class="blurb">О соматическом подходе к травме — почему тело умеет исцеляться.</p></div></li>
+        <li><span class="mark">■</span><div><p class="title">Габор Матэ. «Когда тело говорит «нет»»</p><p class="blurb">О связи хронического стресса и телесных болезней. Читайте как приглашение к разговору, а не как медицинский справочник.</p></div></li>
+        <li><span class="mark">■</span><div><p class="title">Джудит Герман. «Травма и исцеление»</p><p class="blurb">Основополагающий труд о ПТСР и восстановлении после насилия.</p></div></li>
+      </ul>
+    </section>
+
+    <section>
+      <h2 class="section-title">8. Утрата и горе</h2>
+      <p class="section-lead">Когда уходит близкий человек — или любимый питомец</p>
+      <ul class="books">
+        <li><span class="mark">■</span><div><p class="title">Элизабет Кюблер-Росс. «О смерти и умирании»</p><p class="blurb">Классика — стадии проживания горя, известные во всём мире.</p></div></li>
+        <li><span class="mark">■</span><div><p class="title">Эдит Ева Эгер. «Выбор»</p><p class="blurb">Автобиография психолога, пережившей Освенцим. О свободе внутри боли.</p></div></li>
+        <li><span class="mark">■</span><div><p class="title">Эдит Ева Эгер. «Дар»</p><p class="blurb">Продолжение — 12 «ключей» от того, что нас держит в прошлом.</p></div></li>
+        <li><span class="mark">■</span><div><p class="title">Дарья Стрекалина. «Психотерапия при утрате питомца»</p><p class="blurb">Редкая русскоязычная книга: горе по животному — настоящее горе, не «блажь».</p></div></li>
+        <li><span class="mark">■</span><div><p class="title">Лори Грин, Жаклин Лэндис. «Прощай, мой друг»</p><p class="blurb">Практическая поддержка для тех, кто прощается с любимым питомцем.</p></div></li>
+      </ul>
+    </section>
+
+    <section>
+      <h2 class="section-title">9. Дети, подростки, родительство</h2>
+      <p class="section-lead">Как понимать ребёнка — и себя как родителя</p>
+      <ul class="books">
+        <li><span class="mark">■</span><div><p class="title">Юлия Гиппенрейтер. «Общаться с ребенком. Как?»</p><p class="blurb">Абсолютная классика — с примерами диалогов, которые сразу можно применять.</p></div></li>
+        <li><span class="mark">■</span><div><p class="title">Людмила Петрановская. «Тайная опора»</p><p class="blurb">О привязанности как о главном ресурсе ребёнка на всю жизнь.</p></div></li>
+        <li><span class="mark">■</span><div><p class="title">Алис Миллер. «Драма одаренного ребенка»</p><p class="blurb">О детях, которые слишком рано стали «удобными» — и что с этим во взрослой жизни.</p></div></li>
+        <li><span class="mark">■</span><div><p class="title">Кэтрин Кволс. «Радость воспитания»</p><p class="blurb">Воспитание без наказаний и криков — конкретные приёмы.</p></div></li>
+        <li><span class="mark">■</span><div><p class="title">Юлия Пирумова. «Уйти, чтобы вырасти»</p><p class="blurb">О сепарации от родителей — почему это болезненно и почему необходимо.</p></div></li>
+        <li><span class="mark">■</span><div><p class="title">Джин и Роберт Байярд. «Ваш беспокойный подросток»</p><p class="blurb">Если дома живёт подросток и вы не знаете, как с ним разговаривать.</p></div></li>
+      </ul>
+    </section>
+
+    <section>
+      <h2 class="section-title">10. Тело, мозг и психосоматика</h2>
+      <p class="section-lead">Как связаны психика, нервная система и телесное здоровье</p>
+      <ul class="books">
+        <li><span class="mark">■</span><div><p class="title">Носсрат Пезешкиан. «Психосоматика и позитивная психотерапия»</p><p class="blurb">О том, как переживания превращаются в телесные симптомы.</p></div></li>
+        <li><span class="mark">■</span><div><p class="title">Дэниел Сигел. «Майндсайт»</p><p class="blurb">Как наблюдать свой мозг и учиться регулировать эмоции.</p></div></li>
+        <li><span class="mark">■</span><div><p class="title">Роберт Сапольски. «Биология добра и зла»</p><p class="blurb">Блестящий нейробиолог о том, почему мы поступаем так, как поступаем.</p></div></li>
+      </ul>
+    </section>
+
+    <section>
+      <h2 class="section-title">11. Смысл, зрелость, конечность жизни</h2>
+      <p class="section-lead">Большие вопросы, которые рано или поздно задаёт себе каждый</p>
+      <ul class="books">
+        <li><span class="mark">■</span><div><p class="title">Виктор Франкл. «Сказать жизни «Да»»</p><p class="blurb">Опыт узника концлагеря — и о том, как смысл спасает человека.</p></div></li>
+        <li><span class="mark">■</span><div><p class="title">Альфрид Лэнгле. «Жить осмысленно»</p><p class="blurb">Экзистенциальный анализ — о согласии с собственной жизнью.</p></div></li>
+        <li><span class="mark">■</span><div><p class="title">Ирвин Ялом. «Вглядываясь в солнце»</p><p class="blurb">О страхе смерти — и о том, как он на самом деле влияет на нашу жизнь.</p></div></li>
+        <li><span class="mark">■</span><div><p class="title">Джеймс Холлис. «Перевал в середине пути»</p><p class="blurb">Кризис среднего возраста — как «второе взросление», а не катастрофа.</p></div></li>
+        <li><span class="mark">■</span><div><p class="title">Александра Гитман. «Я не старею, я меняюсь»</p><p class="blurb">Разговор с позитивным психотерапевтом о принятии возраста.</p></div></li>
+      </ul>
+    </section>
+
+    <section>
+      <h2 class="section-title">12. Сон</h2>
+      <p class="section-lead">Если сон нарушен — это лечится, и почти всегда без снотворных</p>
+      <ul class="books">
+        <li><span class="mark">■</span><div><p class="title">Роман Бузунов, София Черкасова. «Как победить бессонницу?»</p><p class="blurb">Лучшая русскоязычная книга по КПТ бессонницы — 6-недельная программа. С неё рекомендую начать.</p></div></li>
+        <li><span class="mark">■</span><div><p class="title">Мэттью Уолкер. «Зачем мы спим»</p><p class="blurb">Вдохновляющее чтение о важности сна. По конкретной практике опирайтесь на Бузунова.</p></div></li>
+      </ul>
+    </section>
+
+    <section>
+      <h2 class="section-title">13. Художественная литература с психологическим подтекстом</h2>
+      <p class="section-lead">Иногда роман говорит больше, чем учебник</p>
+      <ul class="books">
+        <li><span class="mark">■</span><div><p class="title">Герман Гессе. «Сиддхартха»</p><p class="blurb">О долгом пути к себе — коротко и как притча.</p></div></li>
+        <li><span class="mark">■</span><div><p class="title">Михаил Булгаков. «Мастер и Маргарита»</p><p class="blurb">О любви, свободе и цене выбора.</p></div></li>
+        <li><span class="mark">■</span><div><p class="title">Фёдор Достоевский. «Преступление и наказание»</p><p class="blurb">Величайшее исследование вины и раскаяния в мировой литературе.</p></div></li>
+        <li><span class="mark">■</span><div><p class="title">Антуан де Сент-Экзюпери. «Цитадель»</p><p class="blurb">Медленная и мудрая книга — как разговор с очень взрослым человеком.</p></div></li>
+        <li><span class="mark">■</span><div><p class="title">Аглая Датешидзе. «Жила-была девочка»</p><p class="blurb">Психотерапевтическая сказка о взрослении внутренней девочки.</p></div></li>
+        <li><span class="mark">■</span><div><p class="title">Оушен Вуонг. «Лишь краткий миг земной мы все прекрасны»</p><p class="blurb">О любви, травме и памяти — на грани прозы и поэзии.</p></div></li>
+        <li><span class="mark">■</span><div><p class="title">Джон Грин. «Виноваты звезды»</p><p class="blurb">Про юность, болезнь и любовь — без сентиментальности.</p></div></li>
+        <li><span class="mark">■</span><div><p class="title">Джоанн Гринберг. «Я никогда не обещала тебе сад из роз»</p><p class="blurb">Автобиографический роман о лечении психоза — глазами пациентки.</p></div></li>
+      </ul>
+    </section>
+
+    <section>
+      <h2 class="section-title">14. Интернет-ресурсы</h2>
+      <p class="section-lead">Программы самопомощи — бесплатно и на русском</p>
+      <ul class="books resources">
+        <li><span class="mark">■</span><div><p class="title">Программа самопомощи при тревоге и бессоннице</p><p class="blurb"><a href="https://www.mielenterveystalo.fi/ru">mielenterveystalo.fi/ru</a></p></div></li>
+        <li><span class="mark">■</span><div><p class="title">Курс майндфулнесс</p><p class="blurb"><a href="https://palousemindfulness.com/ru">palousemindfulness.com/ru</a></p></div></li>
+      </ul>
+    </section>
+
+    <footer class="closing">
+      <p class="emphasis">Книга — это не рецепт. Это разговор.</p>
+      <p class="note">Если во время чтения что-то откликнется болью или тревогой — приносите это на встречу.</p>
+      <p class="roles">врач-психотерапевт · психолог · сексолог</p>
+    </footer>
+  </main>
+</body>
+</html>
