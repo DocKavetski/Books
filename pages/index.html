@@ -25,6 +25,10 @@
       --ok: #2f6b4f;
       --danger: #8a3b2b;
       --sidebar-w: 280px;
+      --safe-top: env(safe-area-inset-top, 0px);
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+      --mobile-top: 0px;
+      --mobile-bottom: 0px;
     }
 
     * { box-sizing: border-box; }
@@ -41,6 +45,11 @@
       color: var(--ink);
       background: var(--screen-bg);
       line-height: 1.45;
+    }
+
+    button,
+    input {
+      -webkit-tap-highlight-color: transparent;
     }
 
     .ui-font { font-family: "Source Sans 3", system-ui, sans-serif; }
@@ -196,25 +205,13 @@
       min-width: 0;
     }
 
-    .mobile-bar {
+    .mobile-bar,
+    .mobile-search,
+    .topic-chips,
+    .mobile-dock,
+    .sidebar-close {
       display: none;
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      gap: 0.4rem;
-      padding: 0.55rem 0.7rem;
-      background: rgba(255,255,255,0.94);
-      border-bottom: 1px solid var(--line);
-      backdrop-filter: blur(8px);
     }
-
-    .mobile-bar button {
-      flex: 1;
-      background: var(--panel);
-      color: #fff;
-    }
-
-    .mobile-bar .btn-primary { background: var(--accent); color: var(--accent-ink); }
 
     .sheet {
       width: min(210mm, 100% - 2rem);
@@ -428,32 +425,351 @@
     body.no-results .empty-search { display: block; }
 
     @media screen and (max-width: 980px) {
+      :root {
+        --mobile-top: calc(3.6rem + var(--safe-top));
+        --mobile-bottom: calc(4.6rem + var(--safe-bottom));
+      }
+
+      body {
+        background:
+          radial-gradient(120% 60% at 50% -10%, rgba(196,163,90,0.18), transparent 55%),
+          linear-gradient(180deg, #f3efe7 0%, #e8e2d7 100%);
+      }
+
       .app { grid-template-columns: 1fr; }
+
       .sidebar {
         position: fixed;
         inset: 0 auto 0 0;
-        width: min(86vw, 320px);
+        width: min(92vw, 360px);
         z-index: 40;
+        padding: calc(0.85rem + var(--safe-top)) 1rem calc(1.2rem + var(--safe-bottom));
         transform: translateX(-105%);
-        transition: transform 0.2s ease;
-        box-shadow: 12px 0 40px rgba(0,0,0,0.25);
+        transition: transform 0.28s cubic-bezier(.2,.8,.2,1);
+        box-shadow: 18px 0 50px rgba(0,0,0,0.28);
+        gap: 0.75rem;
       }
+
       body.nav-open .sidebar { transform: translateX(0); }
+
       body.nav-open::after {
         content: "";
         position: fixed;
         inset: 0;
-        background: rgba(0,0,0,0.35);
+        background: rgba(18, 22, 20, 0.48);
+        backdrop-filter: blur(2px);
         z-index: 30;
       }
-      .mobile-bar { display: flex; }
-      .sheet {
-        width: 100%;
-        margin: 0;
-        padding: 1.25rem 1rem 2rem;
-        box-shadow: none;
+
+      .sidebar-close {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        top: calc(0.7rem + var(--safe-top));
+        right: 0.75rem;
+        width: 2.35rem;
+        height: 2.35rem;
+        border: 0;
+        border-radius: 999px;
+        background: rgba(255,255,255,0.1);
+        color: #fff;
+        font: 700 1.15rem/1 "Source Sans 3", system-ui, sans-serif;
+        cursor: pointer;
       }
-      h1 { font-size: 1.45rem; }
+
+      .brand { padding-right: 2.6rem; }
+      .brand strong { font-size: 1.05rem; }
+      .brand span { font-size: 0.82rem; }
+
+      .search-wrap input {
+        min-height: 2.7rem;
+        border-radius: 12px;
+        font-size: 1rem;
+        padding: 0.7rem 0.85rem;
+      }
+
+      .actions button {
+        min-height: 2.7rem;
+        border-radius: 12px;
+        font-size: 0.95rem;
+      }
+
+      .toc li {
+        padding: 0.5rem 0.45rem;
+        gap: 0.55rem;
+      }
+
+      .toc a { font-size: 0.95rem; }
+      .toc input {
+        width: 1.15rem;
+        height: 1.15rem;
+        margin-top: 0.2rem;
+      }
+
+      .mobile-bar {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        align-items: center;
+        gap: 0.55rem;
+        position: sticky;
+        top: 0;
+        z-index: 25;
+        padding: calc(0.55rem + var(--safe-top)) 0.85rem 0.55rem;
+        background: rgba(31, 42, 36, 0.94);
+        color: #f7f4ee;
+        border-bottom: 1px solid rgba(255,255,255,0.08);
+        backdrop-filter: blur(14px);
+      }
+
+      .mobile-bar .icon-btn {
+        width: 2.55rem;
+        height: 2.55rem;
+        border: 0;
+        border-radius: 12px;
+        background: rgba(255,255,255,0.1);
+        color: #fff;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font: 700 1rem/1 "Source Sans 3", system-ui, sans-serif;
+        cursor: pointer;
+        flex: 0 0 auto;
+      }
+
+      .mobile-bar .brand-mini {
+        min-width: 0;
+      }
+
+      .mobile-bar .brand-mini strong {
+        display: block;
+        font: 700 0.95rem/1.2 "Source Sans 3", system-ui, sans-serif;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .mobile-bar .brand-mini span {
+        display: block;
+        margin-top: 0.1rem;
+        font: 400 0.72rem/1.2 "Source Sans 3", system-ui, sans-serif;
+        color: rgba(247,244,238,0.62);
+      }
+
+      .mobile-bar .search-toggle.is-on {
+        background: var(--accent);
+        color: var(--accent-ink);
+      }
+
+      .mobile-search {
+        display: none;
+        position: sticky;
+        top: var(--mobile-top);
+        z-index: 24;
+        padding: 0.55rem 0.85rem 0.65rem;
+        background: rgba(247, 245, 241, 0.96);
+        border-bottom: 1px solid var(--line);
+        backdrop-filter: blur(10px);
+      }
+
+      body.search-open .mobile-search { display: block; }
+
+      .mobile-search input {
+        width: 100%;
+        min-height: 2.7rem;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        background: #fff;
+        padding: 0.7rem 0.9rem;
+        font: 400 1rem/1.2 "Source Sans 3", system-ui, sans-serif;
+        color: var(--ink);
+        box-shadow: 0 6px 18px rgba(40, 34, 24, 0.05);
+      }
+
+      .topic-chips {
+        display: flex;
+        gap: 0.45rem;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        padding: 0.7rem 0.85rem 0.15rem;
+        scroll-snap-type: x proximity;
+      }
+
+      .topic-chips::-webkit-scrollbar { display: none; }
+
+      .topic-chips a {
+        flex: 0 0 auto;
+        scroll-snap-align: start;
+        text-decoration: none;
+        color: var(--ink);
+        background: rgba(255,255,255,0.78);
+        border: 1px solid rgba(215,209,198,0.9);
+        border-radius: 999px;
+        padding: 0.48rem 0.85rem;
+        font: 600 0.82rem/1.2 "Source Sans 3", system-ui, sans-serif;
+        box-shadow: 0 4px 12px rgba(40, 34, 24, 0.04);
+        white-space: nowrap;
+      }
+
+      .topic-chips a.active {
+        background: var(--panel);
+        border-color: var(--panel);
+        color: #fff;
+      }
+
+      .sheet {
+        width: auto;
+        margin: 0.55rem 0.7rem calc(1.1rem + var(--mobile-bottom));
+        padding: 1.35rem 1rem 1.6rem;
+        border-radius: 22px;
+        box-shadow:
+          0 1px 0 rgba(255,255,255,0.7) inset,
+          0 18px 40px rgba(40, 34, 24, 0.08);
+        background:
+          linear-gradient(180deg, #fffefb 0%, #fff 100%);
+      }
+
+      .doc-header {
+        margin-bottom: 1.25rem;
+        padding-bottom: 0.35rem;
+      }
+
+      .eyebrow {
+        font-size: 0.68rem;
+        letter-spacing: 0.22em;
+      }
+
+      h1 {
+        font-size: clamp(1.45rem, 7vw, 1.85rem);
+        letter-spacing: -0.02em;
+      }
+
+      .subtitle { font-size: 0.92rem; }
+      .intro {
+        font-size: 0.9rem;
+        text-align: left;
+        max-width: none;
+      }
+
+      .topic {
+        margin: 0 0 1.35rem;
+        padding: 0.75rem 0.7rem 0.55rem;
+        border: 1px solid rgba(215,209,198,0.75);
+        border-radius: 16px;
+        background: #fff;
+        scroll-margin-top: calc(var(--mobile-top) + 4.2rem);
+        box-shadow: 0 8px 20px rgba(40, 34, 24, 0.03);
+      }
+
+      .topic.is-target {
+        box-shadow: 0 0 0 2px rgba(196,163,90,0.35), 0 10px 24px rgba(40, 34, 24, 0.05);
+        background: #fffaf0;
+      }
+
+      .section-select,
+      .books .pick {
+        width: 1.2rem;
+        height: 1.2rem;
+      }
+
+      .section-title {
+        font-size: 0.95rem;
+        line-height: 1.3;
+        border-radius: 8px;
+        padding: 0.4rem 0.55rem;
+      }
+
+      .section-tools {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 0.35rem;
+        margin: 0.45rem 0 0.55rem;
+      }
+
+      .section-tools button {
+        min-height: 2.35rem;
+        padding: 0.4rem 0.35rem;
+        border-radius: 10px;
+        font-size: 0.72rem;
+        background: #f6f1e8;
+      }
+
+      .section-lead {
+        font-size: 0.88rem;
+        margin-bottom: 0.65rem;
+      }
+
+      .books li {
+        grid-template-columns: 1.25rem 1fr;
+        gap: 0.55rem;
+        margin: 0 0 0.75rem;
+        padding: 0.55rem 0.55rem 0.55rem 0.45rem;
+        border-radius: 12px;
+        background: #faf8f4;
+      }
+
+      .books .mark { display: none; }
+
+      .books .title { font-size: 0.92rem; }
+      .books .blurb { font-size: 0.84rem; color: #444; }
+
+      .closing {
+        margin-top: 0.5rem;
+        padding: 1rem 0.4rem 0.2rem;
+      }
+
+      .mobile-dock {
+        display: grid;
+        grid-template-columns: 1.1fr 1.4fr;
+        gap: 0.45rem;
+        position: fixed;
+        left: 0.7rem;
+        right: 0.7rem;
+        bottom: calc(0.65rem + var(--safe-bottom));
+        z-index: 28;
+        padding: 0.45rem;
+        border-radius: 18px;
+        background: rgba(31, 42, 36, 0.96);
+        box-shadow: 0 16px 40px rgba(0,0,0,0.28);
+        backdrop-filter: blur(12px);
+      }
+
+      .mobile-dock button {
+        min-height: 2.85rem;
+        border: 0;
+        border-radius: 14px;
+        font-family: "Source Sans 3", system-ui, sans-serif;
+        font-size: 0.92rem;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      .mobile-dock .dock-status {
+        background: rgba(255,255,255,0.08);
+        color: #f4f1ea;
+      }
+
+      .mobile-dock .btn-primary {
+        background: var(--accent);
+        color: var(--accent-ink);
+      }
+
+      .toast {
+        left: 0.85rem;
+        right: 0.85rem;
+        bottom: calc(5.4rem + var(--safe-bottom));
+        text-align: center;
+      }
+
+      body.search-open .topic-chips {
+        top: calc(var(--mobile-top) + 3.55rem);
+      }
+    }
+
+    @media screen and (max-width: 380px) {
+      .section-tools { grid-template-columns: 1fr; }
+      .mobile-bar .brand-mini span { display: none; }
     }
 
     /* —— Print —— */
@@ -461,6 +777,9 @@
       body { background: #fff; }
       .sidebar,
       .mobile-bar,
+      .mobile-search,
+      .topic-chips,
+      .mobile-dock,
       .section-tools,
       .toast,
       .books .pick,
@@ -496,6 +815,7 @@
 <body>
   <div class="app">
     <aside class="sidebar ui-font" id="sidebar" aria-label="Меню практики">
+      <button type="button" class="sidebar-close" id="closeNav" aria-label="Закрыть меню">×</button>
       <div class="brand">
         <strong>Литература для пациента</strong>
         <span>Выберите темы → распечатайте нужное</span>
@@ -519,10 +839,20 @@
     </aside>
 
     <div class="workspace">
-      <div class="mobile-bar ui-font" role="region" aria-label="Быстрые действия">
-        <button type="button" id="toggleNav">Меню</button>
-        <button type="button" class="btn-primary" id="printSelectedMobile">Печать</button>
+      <div class="mobile-bar ui-font" role="region" aria-label="Мобильная панель">
+        <button type="button" class="icon-btn" id="toggleNav" aria-label="Открыть меню">☰</button>
+        <div class="brand-mini">
+          <strong>Литература</strong>
+          <span id="mobileStatus">Ничего не выбрано</span>
+        </div>
+        <button type="button" class="icon-btn search-toggle" id="toggleSearch" aria-label="Поиск">⌕</button>
       </div>
+
+      <div class="mobile-search ui-font">
+        <input id="mobileSearch" type="search" placeholder="Найти автора или книгу…" autocomplete="off" />
+      </div>
+
+      <nav class="topic-chips ui-font" id="topicChips" aria-label="Быстрый переход"></nav>
 
       <main id="top" class="sheet">
         <header class="doc-header">
@@ -853,6 +1183,11 @@
           <p class="roles">врач-психотерапевт · психолог · сексолог</p>
         </footer>
       </main>
+
+      <div class="mobile-dock ui-font" role="region" aria-label="Действия печати">
+        <button type="button" class="dock-status" id="openNavFromDock">Разделы</button>
+        <button type="button" class="btn-primary" id="printSelectedMobile">Печать выбранного</button>
+      </div>
     </div>
   </div>
 
@@ -862,10 +1197,32 @@
     (() => {
       const topics = [...document.querySelectorAll(".topic")];
       const toc = document.getElementById("toc");
+      const chips = document.getElementById("topicChips");
       const status = document.getElementById("status");
+      const mobileStatus = document.getElementById("mobileStatus");
+      const dockStatus = document.getElementById("openNavFromDock");
       const search = document.getElementById("search");
+      const mobileSearch = document.getElementById("mobileSearch");
       const toast = document.getElementById("toast");
       let toastTimer;
+
+      const shortTitles = {
+        s1: "Основы",
+        s2: "Тревога",
+        s3: "Депрессия",
+        s4: "Отношения",
+        s5: "Созависимость",
+        s6: "Сексуальность",
+        s7: "Самооценка",
+        s8: "Травма",
+        s9: "Утрата",
+        s10: "Родительство",
+        s11: "Психосоматика",
+        s12: "Смысл",
+        s13: "Сон",
+        s14: "Худож. лит.",
+        s15: "Ресурсы"
+      };
 
       function showToast(message) {
         toast.textContent = message;
@@ -892,14 +1249,18 @@
       function updateStatus() {
         const sections = topics.filter((t) => t.querySelector(".section-select").checked).length;
         const books = document.querySelectorAll(".pick:checked").length;
-        if (!sections && !books) {
-          status.textContent = "Ничего не выбрано";
-          return;
+        let text = "Ничего не выбрано";
+        let dock = "Разделы";
+        if (sections || books) {
+          const parts = [];
+          if (sections) parts.push(`разд. ${sections}`);
+          if (books) parts.push(`книг ${books}`);
+          text = `Выбрано — ${parts.join(", ")}`;
+          dock = `Выбрано: ${books || sections}`;
         }
-        const parts = [];
-        if (sections) parts.push(`разделов: ${sections}`);
-        if (books) parts.push(`книг: ${books}`);
-        status.textContent = `Выбрано — ${parts.join(", ")}`;
+        status.textContent = text;
+        if (mobileStatus) mobileStatus.textContent = text;
+        if (dockStatus) dockStatus.textContent = dock;
       }
 
       function syncTocChecks() {
@@ -912,6 +1273,10 @@
         });
       }
 
+      function setNavOpen(open) {
+        document.body.classList.toggle("nav-open", open);
+      }
+
       topics.forEach((section, index) => {
         const n = index + 1;
         const title = section.dataset.title;
@@ -921,6 +1286,12 @@
           <a href="#${section.id}">${n}. ${title}</a>
         `;
         toc.appendChild(li);
+
+        const chip = document.createElement("a");
+        chip.href = `#${section.id}`;
+        chip.textContent = `${n}. ${shortTitles[section.id] || title}`;
+        chip.dataset.target = section.id;
+        chips.appendChild(chip);
 
         const sectionBox = section.querySelector(".section-select");
         const tocBox = li.querySelector("input");
@@ -1020,18 +1391,27 @@
       window.addEventListener("afterprint", clearPrintMode);
 
       document.getElementById("toggleNav").addEventListener("click", () => {
-        document.body.classList.toggle("nav-open");
+        setNavOpen(!document.body.classList.contains("nav-open"));
       });
-      document.addEventListener("click", (e) => {
-        if (!document.body.classList.contains("nav-open")) return;
-        if (e.target.closest(".sidebar") || e.target.closest("#toggleNav")) return;
-        document.body.classList.remove("nav-open");
-      });
-      toc.addEventListener("click", (e) => {
-        if (e.target.tagName === "A") document.body.classList.remove("nav-open");
+      document.getElementById("closeNav").addEventListener("click", () => setNavOpen(false));
+      document.getElementById("openNavFromDock").addEventListener("click", () => setNavOpen(true));
+
+      document.getElementById("toggleSearch").addEventListener("click", () => {
+        const open = document.body.classList.toggle("search-open");
+        document.getElementById("toggleSearch").classList.toggle("is-on", open);
+        if (open) mobileSearch.focus();
       });
 
-      // Search
+      document.addEventListener("click", (e) => {
+        if (!document.body.classList.contains("nav-open")) return;
+        if (e.target.closest(".sidebar") || e.target.closest("#toggleNav") || e.target.closest("#openNavFromDock")) return;
+        setNavOpen(false);
+      });
+      toc.addEventListener("click", (e) => {
+        if (e.target.tagName === "A") setNavOpen(false);
+      });
+      chips.addEventListener("click", () => setNavOpen(false));
+
       const originalText = new Map();
       document.querySelectorAll(".title, .blurb, .section-title, .section-lead").forEach((el) => {
         originalText.set(el, el.innerHTML);
@@ -1041,8 +1421,11 @@
         return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
       }
 
-      search.addEventListener("input", () => {
-        const q = search.value.trim().toLowerCase();
+      function runSearch(raw, source) {
+        const q = raw.trim().toLowerCase();
+        if (source !== search) search.value = raw;
+        if (source !== mobileSearch) mobileSearch.value = raw;
+
         originalText.forEach((html, el) => { el.innerHTML = html; });
 
         let visibleBooks = 0;
@@ -1067,16 +1450,24 @@
           section.classList.toggle("is-dimmed", Boolean(q) && !sectionHit);
         });
         document.body.classList.toggle("no-results", Boolean(q) && visibleBooks === 0);
-      });
+      }
 
-      // Active section highlight while scrolling
+      search.addEventListener("input", () => runSearch(search.value, search));
+      mobileSearch.addEventListener("input", () => runSearch(mobileSearch.value, mobileSearch));
+
       const tocLinks = [...toc.querySelectorAll("li")];
+      const chipLinks = [...chips.querySelectorAll("a")];
       const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
           if (!entry.isIntersecting) return;
           const id = entry.target.id;
           tocLinks.forEach((li) => {
             li.classList.toggle("active", li.querySelector("a")?.getAttribute("href") === `#${id}`);
+          });
+          chipLinks.forEach((chip) => {
+            const on = chip.dataset.target === id;
+            chip.classList.toggle("active", on);
+            if (on) chip.scrollIntoView({ inline: "center", block: "nearest", behavior: "smooth" });
           });
           topics.forEach((t) => t.classList.toggle("is-target", t.id === id));
         });
