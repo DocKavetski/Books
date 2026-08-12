@@ -3,32 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Рекомендованная литература — для практики</title>
+  <title>Рекомендованная литература</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --ink: #141414;
+      --ink: #111;
       --muted: #555;
       --soft: #666;
-      --rule: #222;
       --bar: #e8e8e8;
       --page: #fff;
-      --screen-bg: #ece8e1;
-      --panel: #1f2a24;
-      --panel-2: #2a3830;
-      --accent: #c4a35a;
-      --accent-ink: #1a1510;
-      --ui: #f7f5f1;
-      --line: #d7d1c6;
-      --ok: #2f6b4f;
-      --danger: #8a3b2b;
-      --sidebar-w: 280px;
-      --safe-top: env(safe-area-inset-top, 0px);
-      --safe-bottom: env(safe-area-inset-bottom, 0px);
-      --mobile-top: 0px;
-      --mobile-bottom: 0px;
+      --bg: #f3f1ec;
+      --nav-w: 240px;
     }
 
     * { box-sizing: border-box; }
@@ -43,174 +30,70 @@
       margin: 0;
       font-family: "Noto Serif", "Times New Roman", serif;
       color: var(--ink);
-      background: var(--screen-bg);
+      background: var(--bg);
       line-height: 1.45;
     }
 
-    button,
-    input {
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    .ui-font { font-family: "Source Sans 3", system-ui, sans-serif; }
-
-    /* —— Screen chrome —— */
-    .app {
+    .layout {
       min-height: 100vh;
       display: grid;
-      grid-template-columns: var(--sidebar-w) 1fr;
+      grid-template-columns: var(--nav-w) 1fr;
     }
 
-    .sidebar {
+    .nav {
       position: sticky;
       top: 0;
       height: 100vh;
       overflow: auto;
-      background: var(--panel);
-      color: #f4f1ea;
-      padding: 1rem 0.9rem 1.5rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.85rem;
+      padding: 1.25rem 1rem 1.5rem;
+      background: #fff;
+      border-right: 1px solid #ddd;
     }
 
-    .brand {
-      padding: 0.35rem 0.35rem 0.55rem;
-      border-bottom: 1px solid rgba(255,255,255,0.12);
+    .nav-title {
+      margin: 0 0 0.75rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--soft);
     }
 
-    .brand strong {
+    .nav ul {
+      list-style: none;
+      margin: 0 0 1.25rem;
+      padding: 0;
+    }
+
+    .nav li { margin: 0 0 0.35rem; }
+
+    .nav a {
       display: block;
-      font-family: "Source Sans 3", system-ui, sans-serif;
-      font-size: 0.95rem;
-      letter-spacing: 0.02em;
+      padding: 0.28rem 0;
+      color: var(--ink);
+      text-decoration: none;
+      font-size: 0.82rem;
+      line-height: 1.3;
     }
 
-    .brand span {
-      display: block;
-      margin-top: 0.2rem;
-      font-family: "Source Sans 3", system-ui, sans-serif;
-      font-size: 0.78rem;
-      color: rgba(244,241,234,0.68);
-    }
+    .nav a:hover { color: #000; text-decoration: underline; }
+    .nav li.active a { font-weight: 700; }
 
-    .search-wrap { position: relative; }
-
-    .search-wrap input {
+    .nav-print {
       width: 100%;
-      border: 1px solid rgba(255,255,255,0.18);
-      background: var(--panel-2);
+      padding: 0.55rem 0.75rem;
+      border: 1px solid #222;
+      background: #222;
       color: #fff;
-      border-radius: 8px;
-      padding: 0.55rem 0.7rem;
-      font: 400 0.9rem/1.2 "Source Sans 3", system-ui, sans-serif;
-    }
-
-    .search-wrap input::placeholder { color: rgba(255,255,255,0.45); }
-
-    .actions {
-      display: grid;
-      gap: 0.4rem;
-    }
-
-    .actions button,
-    .mobile-bar button,
-    .section-tools button {
-      font-family: "Source Sans 3", system-ui, sans-serif;
-      font-size: 0.86rem;
-      font-weight: 600;
-      border: 0;
-      border-radius: 8px;
-      padding: 0.55rem 0.7rem;
+      font: inherit;
+      font-size: 0.9rem;
       cursor: pointer;
     }
 
-    .btn-primary {
-      background: var(--accent);
-      color: var(--accent-ink);
-    }
-
-    .btn-ghost {
-      background: transparent;
-      color: #f4f1ea;
-      border: 1px solid rgba(255,255,255,0.22) !important;
-    }
-
-    .btn-soft {
-      background: var(--panel-2);
-      color: #f4f1ea;
-    }
-
-    .hint {
-      font-family: "Source Sans 3", system-ui, sans-serif;
-      font-size: 0.75rem;
-      color: rgba(244,241,234,0.62);
-      line-height: 1.35;
-      margin: 0;
-    }
-
-    .nav-label {
-      font-family: "Source Sans 3", system-ui, sans-serif;
-      font-size: 0.72rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: rgba(244,241,234,0.5);
-      margin: 0.2rem 0 0;
-    }
-
-    .toc {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      display: grid;
-      gap: 0.2rem;
-    }
-
-    .toc li {
-      display: grid;
-      grid-template-columns: auto 1fr;
-      gap: 0.45rem;
-      align-items: start;
-      padding: 0.28rem 0.3rem;
-      border-radius: 8px;
-    }
-
-    .toc li:hover,
-    .toc li.active {
-      background: rgba(255,255,255,0.06);
-    }
-
-    .toc input { margin-top: 0.28rem; accent-color: var(--accent); }
-
-    .toc a {
-      color: rgba(244,241,234,0.92);
-      text-decoration: none;
-      font-family: "Source Sans 3", system-ui, sans-serif;
-      font-size: 0.84rem;
-      line-height: 1.25;
-    }
-
-    .toc a:hover { color: #fff; }
-
-    .status {
-      margin-top: auto;
-      font-family: "Source Sans 3", system-ui, sans-serif;
-      font-size: 0.78rem;
-      color: rgba(244,241,234,0.7);
-      padding-top: 0.5rem;
-      border-top: 1px solid rgba(255,255,255,0.12);
-    }
-
-    .workspace {
+    .content {
       min-width: 0;
     }
 
-    .mobile-bar,
-    .mobile-search,
-    .topic-chips,
-    .mobile-dock,
-    .sidebar-close,
-    .mobile-print-only {
+    .mobile-print {
       display: none;
     }
 
@@ -232,7 +115,6 @@
       letter-spacing: 0.28em;
       text-transform: uppercase;
       margin: 0 0 0.55rem;
-      font-weight: 400;
     }
 
     h1 {
@@ -264,59 +146,18 @@
       font-size: 0.85rem;
     }
 
-    .topic {
-      margin: 0 0 1.15rem;
-      padding-top: 0.15rem;
-      break-inside: avoid;
+    section {
+      margin: 0 0 1rem;
       scroll-margin-top: 1rem;
-      border-radius: 4px;
-      transition: box-shadow 0.2s ease, background 0.2s ease;
+      break-inside: avoid;
     }
-
-    .topic.is-target {
-      box-shadow: inset 3px 0 0 var(--accent);
-      background: #fbf8f1;
-    }
-
-    .topic.is-dimmed { opacity: 0.28; }
-
-    .section-head {
-      display: flex;
-      gap: 0.5rem;
-      align-items: flex-start;
-      margin-bottom: 0.25rem;
-    }
-
-    .section-select {
-      margin-top: 0.45rem;
-      accent-color: var(--ok);
-      flex: 0 0 auto;
-    }
-
-    .section-title-wrap { flex: 1; min-width: 0; }
 
     .section-title {
       background: var(--bar);
       padding: 0.28rem 0.55rem;
       font-size: 0.98rem;
       font-weight: 700;
-      margin: 0;
-    }
-
-    .section-tools {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.3rem;
-      margin: 0.35rem 0 0.45rem;
-    }
-
-    .section-tools button {
-      background: #f0ebe3;
-      color: var(--ink);
-      border: 1px solid var(--line);
-      padding: 0.28rem 0.55rem;
-      font-size: 0.78rem;
-      font-weight: 600;
+      margin: 0 0 0.2rem;
     }
 
     .section-lead {
@@ -335,44 +176,20 @@
 
     .books li {
       display: grid;
-      grid-template-columns: 1.2rem 1.1rem 1fr;
+      grid-template-columns: 1.1rem 1fr;
       gap: 0.35rem;
       margin: 0 0 0.55rem;
       font-size: 0.9rem;
       break-inside: avoid;
-      align-items: start;
     }
 
-    .books li.book-hidden { display: none; }
-
-    .books .pick {
-      margin-top: 0.2rem;
-      accent-color: var(--ok);
-    }
-
-    .books .mark { line-height: 1.35; }
-
-    .books .title {
-      font-weight: 700;
-      margin: 0;
-    }
-
-    .books .blurb {
-      margin: 0.08rem 0 0;
-      font-size: 0.86rem;
-      color: var(--ink);
-    }
-
-    mark.hit {
-      background: #ffe08a;
-      color: inherit;
-      padding: 0 0.1em;
-    }
+    .books .title { font-weight: 700; margin: 0; }
+    .books .blurb { margin: 0.08rem 0 0; font-size: 0.86rem; }
 
     .closing {
       margin-top: 1.4rem;
       text-align: center;
-      border-top: 1px solid var(--rule);
+      border-top: 1px solid #222;
       padding-top: 0.9rem;
     }
 
@@ -392,88 +209,29 @@
       color: var(--soft);
     }
 
-    .toast {
-      position: fixed;
-      right: 1rem;
-      bottom: 1rem;
-      z-index: 50;
-      background: var(--panel);
-      color: #fff;
-      padding: 0.7rem 0.95rem;
-      border-radius: 10px;
-      font-family: "Source Sans 3", system-ui, sans-serif;
-      font-size: 0.88rem;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-      opacity: 0;
-      transform: translateY(8px);
-      pointer-events: none;
-      transition: 0.2s ease;
-    }
+    @media screen and (max-width: 900px) {
+      .layout { display: block; }
+      .nav { display: none; }
 
-    .toast.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .empty-search {
-      display: none;
-      text-align: center;
-      padding: 1rem;
-      color: var(--muted);
-      font-family: "Source Sans 3", system-ui, sans-serif;
-    }
-
-    body.no-results .empty-search { display: block; }
-
-    @media screen and (max-width: 980px) {
-      .app { display: block; }
-
-      .sidebar,
-      .mobile-search,
-      .topic-chips,
-      .mobile-dock,
-      .sidebar-close,
-      .section-tools,
-      .section-select,
-      .books .pick,
-      .toast,
-      .empty-search {
-        display: none !important;
-      }
-
-      body {
-        background: #fff;
-      }
-
-      .mobile-bar {
+      .mobile-print {
         display: flex;
         justify-content: center;
         position: sticky;
         top: 0;
-        z-index: 20;
-        padding: calc(0.55rem + var(--safe-top)) 0.85rem 0.55rem;
-        background: rgba(255, 255, 255, 0.94);
+        z-index: 10;
+        padding: 0.75rem 1rem;
+        background: rgba(255, 255, 255, 0.92);
         border-bottom: 1px solid #ddd;
         backdrop-filter: blur(8px);
       }
 
-      .mobile-bar .brand-mini,
-      .mobile-bar .icon-btn,
-      .mobile-bar .search-toggle {
-        display: none;
-      }
-
-      .mobile-bar .mobile-print-only {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 2.5rem;
-        padding: 0.55rem 1.2rem;
+      .mobile-print button {
+        font: inherit;
+        font-size: 0.95rem;
+        padding: 0.55rem 1.1rem;
         border: 1px solid #222;
         background: #222;
         color: #fff;
-        border-radius: 0;
-        font: 600 0.95rem/1 "Source Sans 3", system-ui, sans-serif;
         cursor: pointer;
       }
 
@@ -482,83 +240,23 @@
         margin: 0;
         padding: 1.25rem 1rem 2rem;
         box-shadow: none;
-        border-radius: 0;
-        background: #fff;
       }
 
       h1 { font-size: 1.45rem; }
-
-      .topic {
-        margin: 0 0 1rem;
-        padding: 0;
-        border: 0;
-        border-radius: 0;
-        background: transparent;
-        box-shadow: none;
-        scroll-margin-top: 3.5rem;
-      }
-
-      .topic.is-target {
-        box-shadow: none;
-        background: transparent;
-      }
-
-      .section-head {
-        gap: 0;
-      }
-
-      .section-title {
-        font-size: 0.95rem;
-      }
-
-      .books li {
-        grid-template-columns: 1.1rem 1fr;
-        gap: 0.35rem;
-        margin: 0 0 0.55rem;
-        padding: 0;
-        border-radius: 0;
-        background: transparent;
-      }
-
-      .books .mark { display: block; }
-
-      .intro {
-        text-align: center;
-      }
     }
 
-    /* —— Print —— */
     @media print {
       body { background: #fff; }
-      .sidebar,
-      .mobile-bar,
-      .mobile-search,
-      .topic-chips,
-      .mobile-dock,
-      .section-tools,
-      .toast,
-      .books .pick,
-      .section-select { display: none !important; }
-
-      .app { display: block; }
+      .nav,
+      .mobile-print { display: none !important; }
+      .layout { display: block; }
       .sheet {
         width: auto;
         margin: 0;
         padding: 0;
         box-shadow: none;
       }
-
       a { color: inherit; text-decoration: none; }
-      .topic { box-shadow: none !important; background: transparent !important; opacity: 1 !important; }
-
-      body.print-selection .topic:not(.print-include) { display: none !important; }
-      body.print-selection .books li:not(.print-include) { display: none !important; }
-      body.print-books-only .doc-header .intro,
-      body.print-books-only .doc-header .divider { display: none; }
-
-      .books li {
-        grid-template-columns: 1.1rem 1fr;
-      }
     }
 
     @page {
@@ -568,49 +266,36 @@
   </style>
 </head>
 <body>
-  <div class="app">
-    <aside class="sidebar ui-font" id="sidebar" aria-label="Меню практики">
-      <button type="button" class="sidebar-close" id="closeNav" aria-label="Закрыть меню">×</button>
-      <div class="brand">
-        <strong>Литература для пациента</strong>
-        <span>Выберите темы → распечатайте нужное</span>
-      </div>
-
-      <div class="search-wrap">
-        <input id="search" type="search" placeholder="Поиск: автор, книга, слово…" autocomplete="off" />
-      </div>
-
-      <div class="actions">
-        <button type="button" class="btn-primary" id="printSelected">Печать выбранного</button>
-        <button type="button" class="btn-soft" id="printAll">Печать всего списка</button>
-        <button type="button" class="btn-ghost" id="clearSelection">Сбросить выбор</button>
-      </div>
-      <p class="hint">Отметьте разделы слева или отдельные книги в тексте. Для пациента обычно хватает 1–2 тем.</p>
-
-      <p class="nav-label">Разделы</p>
-      <ul class="toc" id="toc"></ul>
-
-      <div class="status" id="status">Ничего не выбрано</div>
+  <div class="layout">
+    <aside class="nav" aria-label="Навигация по разделам">
+      <p class="nav-title">Разделы</p>
+      <ul id="toc">
+        <li><a href="#s1">1. Основы психологии и психотерапии</a></li>
+        <li><a href="#s2">2. Тревога, стресс и навязчивые мысли</a></li>
+        <li><a href="#s3">3. Депрессия, выгорание и эмоции</a></li>
+        <li><a href="#s4">4. Отношения и коммуникация</a></li>
+        <li><a href="#s5">5. Созависимость и любовная зависимость</a></li>
+        <li><a href="#s6">6. Сексуальность и интимность</a></li>
+        <li><a href="#s7">7. Самооценка и путь к себе</a></li>
+        <li><a href="#s8">8. Травма и работа с прошлым</a></li>
+        <li><a href="#s9">9. Утрата и горе</a></li>
+        <li><a href="#s10">10. Дети, подростки, родительство</a></li>
+        <li><a href="#s11">11. Тело, мозг и психосоматика</a></li>
+        <li><a href="#s12">12. Смысл, зрелость, конечность жизни</a></li>
+        <li><a href="#s13">13. Сон</a></li>
+        <li><a href="#s14">14. Художественная литература с психологическим подтекстом</a></li>
+        <li><a href="#s15">15. Интернет-ресурсы</a></li>
+      </ul>
+      <button type="button" class="nav-print" onclick="window.print()">Распечатать</button>
     </aside>
 
-    <div class="workspace">
-      <div class="mobile-bar ui-font" role="region" aria-label="Печать">
-        <button type="button" class="icon-btn" id="toggleNav" aria-label="Открыть меню" hidden>☰</button>
-        <div class="brand-mini" hidden>
-          <strong>Литература</strong>
-          <span id="mobileStatus">Ничего не выбрано</span>
-        </div>
-        <button type="button" class="icon-btn search-toggle" id="toggleSearch" aria-label="Поиск" hidden>⌕</button>
-        <button type="button" class="mobile-print-only" id="printSelectedMobile">Распечатать</button>
+    <div class="content">
+      <div class="mobile-print">
+        <button type="button" onclick="window.print()">Распечатать</button>
       </div>
-
-      <div class="mobile-search ui-font">
-        <input id="mobileSearch" type="search" placeholder="Найти автора или книгу…" autocomplete="off" />
-      </div>
-
-      <nav class="topic-chips ui-font" id="topicChips" aria-label="Быстрый переход"></nav>
 
       <main id="top" class="sheet">
+
         <header class="doc-header">
           <p class="eyebrow">Рекомендованная литература</p>
           <h1>Книги для чтения и размышления</h1>
@@ -623,313 +308,188 @@
           </p>
           <p class="divider">* * *</p>
         </header>
-
-        <p class="empty-search">Ничего не найдено. Попробуйте другое слово.</p>
-
-        <section class="topic" id="s1" data-title="Основы психологии и психотерапии" data-lead="С чего начать, если вы впервые открываете для себя эту тему">
-          <div class="section-head">
-            <input class="section-select" type="checkbox" aria-label="Выбрать раздел 1" />
-            <div class="section-title-wrap">
-              <h2 class="section-title">1. Основы психологии и психотерапии</h2>
-            </div>
-          </div>
-          <div class="section-tools">
-            <button type="button" data-print-section>Печать раздела</button>
-            <button type="button" data-copy-link>Ссылка</button>
-            <button type="button" data-select-section>Выбрать все книги</button>
-          </div>
-          <p class="section-lead">С чего начать, если вы впервые открываете для себя эту тему</p>
+<section class="section" id="s1">
+          <h2 class="section-title">1. Основы психологии и психотерапии</h2>
+<p class="section-lead">С чего начать, если вы впервые открываете для себя эту тему</p>
           <ul class="books">
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Ирвин Ялом. «Дар психотерапии»</p><p class="blurb">Как устроен разговор с психотерапевтом изнутри — тёплая и человечная книга.</p></div></li>
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Карл Роджерс. «Становление личности»</p><p class="blurb">Классика о принятии себя от одного из отцов гуманистической психологии.</p></div></li>
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Роберт Чалдини. «Психология влияния»</p><p class="blurb">Как нами управляют реклама, близкие и мы сами — и как это замечать.</p></div></li>
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Игнатий Журавлев. «Взламывая психологию»</p><p class="blurb">Лёгкий и наглядный ввод в основные идеи психологии для новичка.</p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Ирвин Ялом. «Дар психотерапии»</p><p class="blurb">Как устроен разговор с психотерапевтом изнутри — тёплая и человечная книга.</p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Карл Роджерс. «Становление личности»</p><p class="blurb">Классика о принятии себя от одного из отцов гуманистической психологии.</p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Роберт Чалдини. «Психология влияния»</p><p class="blurb">Как нами управляют реклама, близкие и мы сами — и как это замечать.</p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Игнатий Журавлев. «Взламывая психологию»</p><p class="blurb">Лёгкий и наглядный ввод в основные идеи психологии для новичка.</p></div></li>
           </ul>
         </section>
 
-        <section class="topic" id="s2" data-title="Тревога, стресс и навязчивые мысли" data-lead="Если сердце частит, мысли не отпускают, а тело живёт «на взводе»">
-          <div class="section-head">
-            <input class="section-select" type="checkbox" aria-label="Выбрать раздел 2" />
-            <div class="section-title-wrap"><h2 class="section-title">2. Тревога, стресс и навязчивые мысли</h2></div>
-          </div>
-          <div class="section-tools">
-            <button type="button" data-print-section>Печать раздела</button>
-            <button type="button" data-copy-link>Ссылка</button>
-            <button type="button" data-select-section>Выбрать все книги</button>
-          </div>
-          <p class="section-lead">Если сердце частит, мысли не отпускают, а тело живёт «на взводе»</p>
+        <section class="section" id="s2">
+          <h2 class="section-title">2. Тревога, стресс и навязчивые мысли</h2>
+<p class="section-lead">Если сердце частит, мысли не отпускают, а тело живёт «на взводе»</p>
           <ul class="books">
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Иван Кириллов. «Стресс-серфинг»</p><p class="blurb">Практика российского врача: как не тонуть в стрессе, а «седлать волну».</p></div></li>
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Артем Барышев. «Эмоциональный шторм»</p><p class="blurb">Понятный разбор того, что происходит с эмоциями в моменты перегрузки.</p></div></li>
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Дэвид Бернс. «Тревожные люди»</p><p class="blurb">Рабочая тетрадь КПТ — с упражнениями, которые реально помогают.</p></div></li>
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Роберт Лихи. «Свобода от тревоги»</p><p class="blurb">Пошаговое руководство от одного из ведущих специалистов по тревоге.</p></div></li>
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Марк Уильямс, Дэнни Пенман. «Осознанность»</p><p class="blurb">8-недельная программа mindfulness — научно обоснованная и посильная.</p></div></li>
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Дж. Хэлловэлл. «Не отвлекайте меня»</p><p class="blurb">Для тех, кто «расщеплён» между задачами и не может сосредоточиться.</p></div></li>
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Алексей Прибытков. «Когда мысли лезут в голову»</p><p class="blurb">Про навязчивости — понятно, по-русски, без наукообразия.</p></div></li>
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Джорджио Нардонэ, Джулио Де Сантис. «Патологическое сомнение. Мыслю, следовательно страдаю»</p><p class="blurb">Если вас мучают бесконечные «а вдруг?» и вы не можете остановиться.</p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Иван Кириллов. «Стресс-серфинг»</p><p class="blurb">Практика российского врача: как не тонуть в стрессе, а «седлать волну».</p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Артем Барышев. «Эмоциональный шторм»</p><p class="blurb">Понятный разбор того, что происходит с эмоциями в моменты перегрузки.</p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Дэвид Бернс. «Тревожные люди»</p><p class="blurb">Рабочая тетрадь КПТ — с упражнениями, которые реально помогают.</p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Роберт Лихи. «Свобода от тревоги»</p><p class="blurb">Пошаговое руководство от одного из ведущих специалистов по тревоге.</p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Марк Уильямс, Дэнни Пенман. «Осознанность»</p><p class="blurb">8-недельная программа mindfulness — научно обоснованная и посильная.</p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Дж. Хэлловэлл. «Не отвлекайте меня»</p><p class="blurb">Для тех, кто «расщеплён» между задачами и не может сосредоточиться.</p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Алексей Прибытков. «Когда мысли лезут в голову»</p><p class="blurb">Про навязчивости — понятно, по-русски, без наукообразия.</p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Джорджио Нардонэ, Джулио Де Сантис. «Патологическое сомнение. Мыслю, следовательно страдаю»</p><p class="blurb">Если вас мучают бесконечные «а вдруг?» и вы не можете остановиться.</p></div></li>
           </ul>
         </section>
 
-        <section class="topic" id="s3" data-title="Депрессия, выгорание и эмоции" data-lead="Когда сил нет, всё серо и непонятно, что с этим делать">
-          <div class="section-head">
-            <input class="section-select" type="checkbox" aria-label="Выбрать раздел 3" />
-            <div class="section-title-wrap"><h2 class="section-title">3. Депрессия, выгорание и эмоции</h2></div>
-          </div>
-          <div class="section-tools">
-            <button type="button" data-print-section>Печать раздела</button>
-            <button type="button" data-copy-link>Ссылка</button>
-            <button type="button" data-select-section>Выбрать все книги</button>
-          </div>
-          <p class="section-lead">Когда сил нет, всё серо и непонятно, что с этим делать</p>
+        <section class="section" id="s3">
+          <h2 class="section-title">3. Депрессия, выгорание и эмоции</h2>
+<p class="section-lead">Когда сил нет, всё серо и непонятно, что с этим делать</p>
           <ul class="books">
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Юлия Пирумова. «Хрупкие люди»</p><p class="blurb">О чувствительности и нарциссической ранимости — с сочувствием, без ярлыков.</p></div></li>
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Мартин Селигман. «Как научиться оптимизму»</p><p class="blurb">Классика позитивной психологии: можно ли натренировать оптимизм.</p></div></li>
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Лоретта Бройнинг. «Гормоны счастья»</p><p class="blurb">Просто и с юмором — о дофамине, серотонине, окситоцине и эндорфинах.</p></div></li>
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Клаус Бернхардт. «Депрессия и выгорание»</p><p class="blurb">Взгляд немецкого практика на выход из «эмоционального нуля».</p></div></li>
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Амелия и Эмили Нагоски. «Выгорание»</p><p class="blurb">Особенно для женщин: почему мы выгораем и как «завершать цикл стресса».</p></div></li>
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Юлия Дремина. «Почему я так реагирую? Причины и польза эмоций»</p><p class="blurb">Знакомство со своими эмоциями — зачем они и как их слушать.</p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Юлия Пирумова. «Хрупкие люди»</p><p class="blurb">О чувствительности и нарциссической ранимости — с сочувствием, без ярлыков.</p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Мартин Селигман. «Как научиться оптимизму»</p><p class="blurb">Классика позитивной психологии: можно ли натренировать оптимизм.</p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Лоретта Бройнинг. «Гормоны счастья»</p><p class="blurb">Просто и с юмором — о дофамине, серотонине, окситоцине и эндорфинах.</p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Клаус Бернхардт. «Депрессия и выгорание»</p><p class="blurb">Взгляд немецкого практика на выход из «эмоционального нуля».</p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Амелия и Эмили Нагоски. «Выгорание»</p><p class="blurb">Особенно для женщин: почему мы выгораем и как «завершать цикл стресса».</p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Юлия Дремина. «Почему я так реагирую? Причины и польза эмоций»</p><p class="blurb">Знакомство со своими эмоциями — зачем они и как их слушать.</p></div></li>
           </ul>
         </section>
 
-        <section class="topic" id="s4" data-title="Отношения и коммуникация" data-lead="Как строить близость, слышать другого и не терять себя">
-          <div class="section-head">
-            <input class="section-select" type="checkbox" aria-label="Выбрать раздел 4" />
-            <div class="section-title-wrap"><h2 class="section-title">4. Отношения и коммуникация</h2></div>
-          </div>
-          <div class="section-tools">
-            <button type="button" data-print-section>Печать раздела</button>
-            <button type="button" data-copy-link>Ссылка</button>
-            <button type="button" data-select-section>Выбрать все книги</button>
-          </div>
-          <p class="section-lead">Как строить близость, слышать другого и не терять себя</p>
+        <section class="section" id="s4">
+          <h2 class="section-title">4. Отношения и коммуникация</h2>
+<p class="section-lead">Как строить близость, слышать другого и не терять себя</p>
           <ul class="books">
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Амир Левин, Рэйчел Хеллер. «Подходим друг другу»</p><p class="blurb">Теория привязанности во взрослых отношениях — с тестом на свой тип.</p></div></li>
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Эрик Берн. «Игры, в которые играют люди»</p><p class="blurb">Классика: какие сценарии мы повторяем в общении, не замечая этого.</p></div></li>
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Маршалл Розенберг. «Ненасильственное общение»</p><p class="blurb">Как говорить о важном без обвинений — язык, который меняет отношения.</p></div></li>
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Сью Джонсон. «Чувство любви»</p><p class="blurb">Эмоционально-фокусированная терапия пар — одна из лучших книг о любви.</p></div></li>
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Марина Травкова. «Почему любимые изменяют, стоит ли прощать, можно ли избежать»</p><p class="blurb">Тактично и по-взрослому об измене — от российского секс-терапевта.</p></div></li>
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Никита Непряхин. «Я манипулирую тобой»</p><p class="blurb">Как распознавать манипуляции и мягко им противостоять.</p></div></li>
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Мелоди Битти. «Спасать или спасаться?»</p><p class="blurb">Библия темы созависимости — если вы всегда «за других больше, чем за себя».</p></div></li>
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Хамид Пезешкиан, Конни Фойгт. «Психовампиры»</p><p class="blurb">Про людей, рядом с которыми «утекает энергия», и как ставить границы.</p></div></li>
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Стефани Качиоппо. «Там, где рождается любовь»</p><p class="blurb">Нейробиолог о том, как любовь буквально меняет мозг.</p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Амир Левин, Рэйчел Хеллер. «Подходим друг другу»</p><p class="blurb">Теория привязанности во взрослых отношениях — с тестом на свой тип.</p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Эрик Берн. «Игры, в которые играют люди»</p><p class="blurb">Классика: какие сценарии мы повторяем в общении, не замечая этого.</p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Маршалл Розенберг. «Ненасильственное общение»</p><p class="blurb">Как говорить о важном без обвинений — язык, который меняет отношения.</p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Сью Джонсон. «Чувство любви»</p><p class="blurb">Эмоционально-фокусированная терапия пар — одна из лучших книг о любви.</p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Марина Травкова. «Почему любимые изменяют, стоит ли прощать, можно ли избежать»</p><p class="blurb">Тактично и по-взрослому об измене — от российского секс-терапевта.</p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Никита Непряхин. «Я манипулирую тобой»</p><p class="blurb">Как распознавать манипуляции и мягко им противостоять.</p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Мелоди Битти. «Спасать или спасаться?»</p><p class="blurb">Библия темы созависимости — если вы всегда «за других больше, чем за себя».</p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Хамид Пезешкиан, Конни Фойгт. «Психовампиры»</p><p class="blurb">Про людей, рядом с которыми «утекает энергия», и как ставить границы.</p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Стефани Качиоппо. «Там, где рождается любовь»</p><p class="blurb">Нейробиолог о том, как любовь буквально меняет мозг.</p></div></li>
           </ul>
         </section>
 
-        <section class="topic" id="s5" data-title="Созависимость и любовная зависимость" data-lead="Если вы всегда «за других больше, чем за себя», а любовь причиняет боль">
-          <div class="section-head">
-            <input class="section-select" type="checkbox" aria-label="Выбрать раздел 5" />
-            <div class="section-title-wrap"><h2 class="section-title">5. Созависимость и любовная зависимость</h2></div>
-          </div>
-          <div class="section-tools">
-            <button type="button" data-print-section>Печать раздела</button>
-            <button type="button" data-copy-link>Ссылка</button>
-            <button type="button" data-select-section>Выбрать все книги</button>
-          </div>
-          <p class="section-lead">Если вы всегда «за других больше, чем за себя», а любовь причиняет боль</p>
+        <section class="section" id="s5">
+          <h2 class="section-title">5. Созависимость и любовная зависимость</h2>
+<p class="section-lead">Если вы всегда «за других больше, чем за себя», а любовь причиняет боль</p>
           <ul class="books">
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Валентина Москаленко. «Зависимость: семейная болезнь»</p><p class="blurb">Ведущий российский специалист, врач-психиатр — самая основательная книга по теме на русском.</p></div></li>
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Робин Норвуд. «Женщины, которые любят слишком сильно»</p><p class="blurb">Легендарная книга: почему мы раз за разом выбираем «не тех» — с узнаванием себя с первых страниц.</p></div></li>
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Мелоди Битти. «Язык прощания»</p><p class="blurb">Продолжение «Спасать или спасаться?» — о жизни после того, как вы поняли, что созависимы.</p></div></li>
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Дженет Войтиц. «Взрослые дети алкоголиков»</p><p class="blurb">Даже если родители не пили — если они были эмоционально недоступны, здесь многое узнаваемо.</p></div></li>
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Пиа Мелоди. «Любовная зависимость»</p><p class="blurb">О разнице между любовью и аддикцией — важно для всех, кто «не может уйти».</p></div></li>
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Клаудия Блэк. «Это никогда со мной не случится»</p><p class="blurb">О детях из семей с зависимостью и трёх правилах выживания: «не говори, не чувствуй, не доверяй».</p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Валентина Москаленко. «Зависимость: семейная болезнь»</p><p class="blurb">Ведущий российский специалист, врач-психиатр — самая основательная книга по теме на русском.</p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Робин Норвуд. «Женщины, которые любят слишком сильно»</p><p class="blurb">Легендарная книга: почему мы раз за разом выбираем «не тех» — с узнаванием себя с первых страниц.</p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Мелоди Битти. «Язык прощания»</p><p class="blurb">Продолжение «Спасать или спасаться?» — о жизни после того, как вы поняли, что созависимы.</p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Дженет Войтиц. «Взрослые дети алкоголиков»</p><p class="blurb">Даже если родители не пили — если они были эмоционально недоступны, здесь многое узнаваемо.</p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Пиа Мелоди. «Любовная зависимость»</p><p class="blurb">О разнице между любовью и аддикцией — важно для всех, кто «не может уйти».</p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Клаудия Блэк. «Это никогда со мной не случится»</p><p class="blurb">О детях из семей с зависимостью и трёх правилах выживания: «не говори, не чувствуй, не доверяй».</p></div></li>
           </ul>
         </section>
 
-        <section class="topic" id="s6" data-title="Сексуальность и интимность" data-lead="О желании, теле и близости — без стыда и мифов">
-          <div class="section-head">
-            <input class="section-select" type="checkbox" aria-label="Выбрать раздел 6" />
-            <div class="section-title-wrap"><h2 class="section-title">6. Сексуальность и интимность</h2></div>
-          </div>
-          <div class="section-tools">
-            <button type="button" data-print-section>Печать раздела</button>
-            <button type="button" data-copy-link>Ссылка</button>
-            <button type="button" data-select-section>Выбрать все книги</button>
-          </div>
-          <p class="section-lead">О желании, теле и близости — без стыда и мифов</p>
+        <section class="section" id="s6">
+          <h2 class="section-title">6. Сексуальность и интимность</h2>
+<p class="section-lead">О желании, теле и близости — без стыда и мифов</p>
           <ul class="books">
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Эмили Нагоски. «Как хочет женщина»</p><p class="blurb">Возможно, лучшая современная книга о женской сексуальности. Настоятельно.</p></div></li>
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Эстер Перель. «Размножение в неволе»</p><p class="blurb">Почему в долгих отношениях гаснет эротика — и что с этим делать.</p></div></li>
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Йен Кернер. «Она кончает первой»</p><p class="blurb">Практическое пособие для пар о женском удовольствии.</p></div></li>
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Барри и Эмили Маккарти. «Новый мужской сексуальный опыт»</p><p class="blurb">О мужской сексуальности взрослого возраста — честно и по-медицински точно.</p></div></li>
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Дэвид Шнарх. «Страсть и супружество»</p><p class="blurb">Глубокая книга о зрелой сексуальности в длительных отношениях. Для мотивированных читателей.</p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Эмили Нагоски. «Как хочет женщина»</p><p class="blurb">Возможно, лучшая современная книга о женской сексуальности. Настоятельно.</p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Эстер Перель. «Размножение в неволе»</p><p class="blurb">Почему в долгих отношениях гаснет эротика — и что с этим делать.</p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Йен Кернер. «Она кончает первой»</p><p class="blurb">Практическое пособие для пар о женском удовольствии.</p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Барри и Эмили Маккарти. «Новый мужской сексуальный опыт»</p><p class="blurb">О мужской сексуальности взрослого возраста — честно и по-медицински точно.</p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Дэвид Шнарх. «Страсть и супружество»</p><p class="blurb">Глубокая книга о зрелой сексуальности в длительных отношениях. Для мотивированных читателей.</p></div></li>
           </ul>
         </section>
 
-        <section class="topic" id="s7" data-title="Самооценка и путь к себе" data-lead="Про уверенность, самоценность и собственный голос">
-          <div class="section-head">
-            <input class="section-select" type="checkbox" aria-label="Выбрать раздел 7" />
-            <div class="section-title-wrap"><h2 class="section-title">7. Самооценка и путь к себе</h2></div>
-          </div>
-          <div class="section-tools">
-            <button type="button" data-print-section>Печать раздела</button>
-            <button type="button" data-copy-link>Ссылка</button>
-            <button type="button" data-select-section>Выбрать все книги</button>
-          </div>
-          <p class="section-lead">Про уверенность, самоценность и собственный голос</p>
+        <section class="section" id="s7">
+          <h2 class="section-title">7. Самооценка и путь к себе</h2>
+<p class="section-lead">Про уверенность, самоценность и собственный голос</p>
           <ul class="books">
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Натаниэль Бранден. «Шесть столпов самооценки»</p><p class="blurb">Классика: на чём стоит устойчивая самооценка — и как её выращивать.</p></div></li>
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Брене Браун. «Дары несовершенства»</p><p class="blurb">О праве быть неидеальным — тепло и по-человечески.</p></div></li>
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Кристин Нефф. «Самосострадание»</p><p class="blurb">Как относиться к себе так же бережно, как к близкому другу.</p></div></li>
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Расс Хэррис. «Ловушка счастья»</p><p class="blurb">ACT-подход: перестать «искать счастье» и начать жить свою жизнь.</p></div></li>
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Виктор Франкл. «Человек в поисках смысла»</p><p class="blurb">Книга, прошедшая проверку Освенцимом. О том, ради чего стоит жить.</p></div></li>
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Лиля Град. «Танцуйте свою жизнь»</p><p class="blurb">Эссе о праве жить своим темпом — для тех, кто устал соответствовать.</p></div></li>
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Юлия Пирумова. «Все дороги ведут к себе»</p><p class="blurb">О возвращении к себе после долгих лет «жизни для других».</p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Натаниэль Бранден. «Шесть столпов самооценки»</p><p class="blurb">Классика: на чём стоит устойчивая самооценка — и как её выращивать.</p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Брене Браун. «Дары несовершенства»</p><p class="blurb">О праве быть неидеальным — тепло и по-человечески.</p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Кристин Нефф. «Самосострадание»</p><p class="blurb">Как относиться к себе так же бережно, как к близкому другу.</p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Расс Хэррис. «Ловушка счастья»</p><p class="blurb">ACT-подход: перестать «искать счастье» и начать жить свою жизнь.</p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Виктор Франкл. «Человек в поисках смысла»</p><p class="blurb">Книга, прошедшая проверку Освенцимом. О том, ради чего стоит жить.</p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Лиля Град. «Танцуйте свою жизнь»</p><p class="blurb">Эссе о праве жить своим темпом — для тех, кто устал соответствовать.</p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Юлия Пирумова. «Все дороги ведут к себе»</p><p class="blurb">О возвращении к себе после долгих лет «жизни для других».</p></div></li>
           </ul>
         </section>
 
-        <section class="topic" id="s8" data-title="Травма и работа с прошлым" data-lead="Если прошлое до сих пор откликается в теле и отношениях">
-          <div class="section-head">
-            <input class="section-select" type="checkbox" aria-label="Выбрать раздел 8" />
-            <div class="section-title-wrap"><h2 class="section-title">8. Травма и работа с прошлым</h2></div>
-          </div>
-          <div class="section-tools">
-            <button type="button" data-print-section>Печать раздела</button>
-            <button type="button" data-copy-link>Ссылка</button>
-            <button type="button" data-select-section>Выбрать все книги</button>
-          </div>
-          <p class="section-lead">Если прошлое до сих пор откликается в теле и отношениях</p>
+        <section class="section" id="s8">
+          <h2 class="section-title">8. Травма и работа с прошлым</h2>
+<p class="section-lead">Если прошлое до сих пор откликается в теле и отношениях</p>
           <ul class="books">
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Бессел ван дер Колк. «Тело помнит всё»</p><p class="blurb">Главная книга последнего десятилетия о том, как травма живёт в теле.</p></div></li>
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Питер Левин. «Пробуждение тигра»</p><p class="blurb">О соматическом подходе к травме — почему тело умеет исцеляться.</p></div></li>
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Габор Матэ. «Когда тело говорит «нет»»</p><p class="blurb">О связи хронического стресса и телесных болезней. Читайте как приглашение к разговору, а не как медицинский справочник.</p></div></li>
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Джудит Герман. «Травма и исцеление»</p><p class="blurb">Основополагающий труд о ПТСР и восстановлении после насилия.</p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Бессел ван дер Колк. «Тело помнит всё»</p><p class="blurb">Главная книга последнего десятилетия о том, как травма живёт в теле.</p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Питер Левин. «Пробуждение тигра»</p><p class="blurb">О соматическом подходе к травме — почему тело умеет исцеляться.</p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Габор Матэ. «Когда тело говорит «нет»»</p><p class="blurb">О связи хронического стресса и телесных болезней. Читайте как приглашение к разговору, а не как медицинский справочник.</p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Джудит Герман. «Травма и исцеление»</p><p class="blurb">Основополагающий труд о ПТСР и восстановлении после насилия.</p></div></li>
           </ul>
         </section>
 
-        <section class="topic" id="s9" data-title="Утрата и горе" data-lead="Когда уходит близкий человек — или любимый питомец">
-          <div class="section-head">
-            <input class="section-select" type="checkbox" aria-label="Выбрать раздел 9" />
-            <div class="section-title-wrap"><h2 class="section-title">9. Утрата и горе</h2></div>
-          </div>
-          <div class="section-tools">
-            <button type="button" data-print-section>Печать раздела</button>
-            <button type="button" data-copy-link>Ссылка</button>
-            <button type="button" data-select-section>Выбрать все книги</button>
-          </div>
-          <p class="section-lead">Когда уходит близкий человек — или любимый питомец</p>
+        <section class="section" id="s9">
+          <h2 class="section-title">9. Утрата и горе</h2>
+<p class="section-lead">Когда уходит близкий человек — или любимый питомец</p>
           <ul class="books">
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Элизабет Кюблер-Росс. «О смерти и умирании»</p><p class="blurb">Классика — стадии проживания горя, известные во всём мире.</p></div></li>
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Эдит Ева Эгер. «Выбор»</p><p class="blurb">Автобиография психолога, пережившей Освенцим. О свободе внутри боли.</p></div></li>
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Эдит Ева Эгер. «Дар»</p><p class="blurb">Продолжение — 12 «ключей» от того, что нас держит в прошлом.</p></div></li>
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Дарья Стрекалина. «Психотерапия при утрате питомца»</p><p class="blurb">Редкая русскоязычная книга: горе по животному — настоящее горе, не «блажь».</p></div></li>
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Лори Грин, Жаклин Лэндис. «Прощай, мой друг»</p><p class="blurb">Практическая поддержка для тех, кто прощается с любимым питомцем.</p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Элизабет Кюблер-Росс. «О смерти и умирании»</p><p class="blurb">Классика — стадии проживания горя, известные во всём мире.</p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Эдит Ева Эгер. «Выбор»</p><p class="blurb">Автобиография психолога, пережившей Освенцим. О свободе внутри боли.</p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Эдит Ева Эгер. «Дар»</p><p class="blurb">Продолжение — 12 «ключей» от того, что нас держит в прошлом.</p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Дарья Стрекалина. «Психотерапия при утрате питомца»</p><p class="blurb">Редкая русскоязычная книга: горе по животному — настоящее горе, не «блажь».</p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Лори Грин, Жаклин Лэндис. «Прощай, мой друг»</p><p class="blurb">Практическая поддержка для тех, кто прощается с любимым питомцем.</p></div></li>
           </ul>
         </section>
 
-        <section class="topic" id="s10" data-title="Дети, подростки, родительство" data-lead="Как понимать ребёнка — и себя как родителя">
-          <div class="section-head">
-            <input class="section-select" type="checkbox" aria-label="Выбрать раздел 10" />
-            <div class="section-title-wrap"><h2 class="section-title">10. Дети, подростки, родительство</h2></div>
-          </div>
-          <div class="section-tools">
-            <button type="button" data-print-section>Печать раздела</button>
-            <button type="button" data-copy-link>Ссылка</button>
-            <button type="button" data-select-section>Выбрать все книги</button>
-          </div>
-          <p class="section-lead">Как понимать ребёнка — и себя как родителя</p>
+        <section class="section" id="s10">
+          <h2 class="section-title">10. Дети, подростки, родительство</h2>
+<p class="section-lead">Как понимать ребёнка — и себя как родителя</p>
           <ul class="books">
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Юлия Гиппенрейтер. «Общаться с ребенком. Как?»</p><p class="blurb">Абсолютная классика — с примерами диалогов, которые сразу можно применять.</p></div></li>
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Людмила Петрановская. «Тайная опора»</p><p class="blurb">О привязанности как о главном ресурсе ребёнка на всю жизнь.</p></div></li>
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Алис Миллер. «Драма одаренного ребенка»</p><p class="blurb">О детях, которые слишком рано стали «удобными» — и что с этим во взрослой жизни.</p></div></li>
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Кэтрин Кволс. «Радость воспитания»</p><p class="blurb">Воспитание без наказаний и криков — конкретные приёмы.</p></div></li>
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Юлия Пирумова. «Уйти, чтобы вырасти»</p><p class="blurb">О сепарации от родителей — почему это болезненно и почему необходимо.</p></div></li>
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Джин и Роберт Байярд. «Ваш беспокойный подросток»</p><p class="blurb">Если дома живёт подросток и вы не знаете, как с ним разговаривать.</p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Юлия Гиппенрейтер. «Общаться с ребенком. Как?»</p><p class="blurb">Абсолютная классика — с примерами диалогов, которые сразу можно применять.</p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Людмила Петрановская. «Тайная опора»</p><p class="blurb">О привязанности как о главном ресурсе ребёнка на всю жизнь.</p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Алис Миллер. «Драма одаренного ребенка»</p><p class="blurb">О детях, которые слишком рано стали «удобными» — и что с этим во взрослой жизни.</p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Кэтрин Кволс. «Радость воспитания»</p><p class="blurb">Воспитание без наказаний и криков — конкретные приёмы.</p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Юлия Пирумова. «Уйти, чтобы вырасти»</p><p class="blurb">О сепарации от родителей — почему это болезненно и почему необходимо.</p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Джин и Роберт Байярд. «Ваш беспокойный подросток»</p><p class="blurb">Если дома живёт подросток и вы не знаете, как с ним разговаривать.</p></div></li>
           </ul>
         </section>
 
-        <section class="topic" id="s11" data-title="Тело, мозг и психосоматика" data-lead="Как связаны психика, нервная система и телесное здоровье">
-          <div class="section-head">
-            <input class="section-select" type="checkbox" aria-label="Выбрать раздел 11" />
-            <div class="section-title-wrap"><h2 class="section-title">11. Тело, мозг и психосоматика</h2></div>
-          </div>
-          <div class="section-tools">
-            <button type="button" data-print-section>Печать раздела</button>
-            <button type="button" data-copy-link>Ссылка</button>
-            <button type="button" data-select-section>Выбрать все книги</button>
-          </div>
-          <p class="section-lead">Как связаны психика, нервная система и телесное здоровье</p>
+        <section class="section" id="s11">
+          <h2 class="section-title">11. Тело, мозг и психосоматика</h2>
+<p class="section-lead">Как связаны психика, нервная система и телесное здоровье</p>
           <ul class="books">
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Носсрат Пезешкиан. «Психосоматика и позитивная психотерапия»</p><p class="blurb">О том, как переживания превращаются в телесные симптомы.</p></div></li>
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Дэниел Сигел. «Майндсайт»</p><p class="blurb">Как наблюдать свой мозг и учиться регулировать эмоции.</p></div></li>
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Роберт Сапольски. «Биология добра и зла»</p><p class="blurb">Блестящий нейробиолог о том, почему мы поступаем так, как поступаем.</p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Носсрат Пезешкиан. «Психосоматика и позитивная психотерапия»</p><p class="blurb">О том, как переживания превращаются в телесные симптомы.</p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Дэниел Сигел. «Майндсайт»</p><p class="blurb">Как наблюдать свой мозг и учиться регулировать эмоции.</p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Роберт Сапольски. «Биология добра и зла»</p><p class="blurb">Блестящий нейробиолог о том, почему мы поступаем так, как поступаем.</p></div></li>
           </ul>
         </section>
 
-        <section class="topic" id="s12" data-title="Смысл, зрелость, конечность жизни" data-lead="Большие вопросы, которые рано или поздно задаёт себе каждый">
-          <div class="section-head">
-            <input class="section-select" type="checkbox" aria-label="Выбрать раздел 12" />
-            <div class="section-title-wrap"><h2 class="section-title">12. Смысл, зрелость, конечность жизни</h2></div>
-          </div>
-          <div class="section-tools">
-            <button type="button" data-print-section>Печать раздела</button>
-            <button type="button" data-copy-link>Ссылка</button>
-            <button type="button" data-select-section>Выбрать все книги</button>
-          </div>
-          <p class="section-lead">Большие вопросы, которые рано или поздно задаёт себе каждый</p>
+        <section class="section" id="s12">
+          <h2 class="section-title">12. Смысл, зрелость, конечность жизни</h2>
+<p class="section-lead">Большие вопросы, которые рано или поздно задаёт себе каждый</p>
           <ul class="books">
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Виктор Франкл. «Сказать жизни «Да»»</p><p class="blurb">Опыт узника концлагеря — и о том, как смысл спасает человека.</p></div></li>
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Альфрид Лэнгле. «Жить осмысленно»</p><p class="blurb">Экзистенциальный анализ — о согласии с собственной жизнью.</p></div></li>
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Ирвин Ялом. «Вглядываясь в солнце»</p><p class="blurb">О страхе смерти — и о том, как он на самом деле влияет на нашу жизнь.</p></div></li>
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Джеймс Холлис. «Перевал в середине пути»</p><p class="blurb">Кризис среднего возраста — как «второе взросление», а не катастрофа.</p></div></li>
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Александра Гитман. «Я не старею, я меняюсь»</p><p class="blurb">Разговор с позитивным психотерапевтом о принятии возраста.</p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Виктор Франкл. «Сказать жизни «Да»»</p><p class="blurb">Опыт узника концлагеря — и о том, как смысл спасает человека.</p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Альфрид Лэнгле. «Жить осмысленно»</p><p class="blurb">Экзистенциальный анализ — о согласии с собственной жизнью.</p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Ирвин Ялом. «Вглядываясь в солнце»</p><p class="blurb">О страхе смерти — и о том, как он на самом деле влияет на нашу жизнь.</p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Джеймс Холлис. «Перевал в середине пути»</p><p class="blurb">Кризис среднего возраста — как «второе взросление», а не катастрофа.</p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Александра Гитман. «Я не старею, я меняюсь»</p><p class="blurb">Разговор с позитивным психотерапевтом о принятии возраста.</p></div></li>
           </ul>
         </section>
 
-        <section class="topic" id="s13" data-title="Сон" data-lead="Если сон нарушен — это лечится, и почти всегда без снотворных">
-          <div class="section-head">
-            <input class="section-select" type="checkbox" aria-label="Выбрать раздел 13" />
-            <div class="section-title-wrap"><h2 class="section-title">13. Сон</h2></div>
-          </div>
-          <div class="section-tools">
-            <button type="button" data-print-section>Печать раздела</button>
-            <button type="button" data-copy-link>Ссылка</button>
-            <button type="button" data-select-section>Выбрать все книги</button>
-          </div>
-          <p class="section-lead">Если сон нарушен — это лечится, и почти всегда без снотворных</p>
+        <section class="section" id="s13">
+          <h2 class="section-title">13. Сон</h2>
+<p class="section-lead">Если сон нарушен — это лечится, и почти всегда без снотворных</p>
           <ul class="books">
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Роман Бузунов, София Черкасова. «Как победить бессонницу?»</p><p class="blurb">Лучшая русскоязычная книга по КПТ бессонницы — 6-недельная программа. С неё рекомендую начать.</p></div></li>
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Мэттью Уолкер. «Зачем мы спим»</p><p class="blurb">Вдохновляющее чтение о важности сна. По конкретной практике опирайтесь на Бузунова.</p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Роман Бузунов, София Черкасова. «Как победить бессонницу?»</p><p class="blurb">Лучшая русскоязычная книга по КПТ бессонницы — 6-недельная программа. С неё рекомендую начать.</p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Мэттью Уолкер. «Зачем мы спим»</p><p class="blurb">Вдохновляющее чтение о важности сна. По конкретной практике опирайтесь на Бузунова.</p></div></li>
           </ul>
         </section>
 
-        <section class="topic" id="s14" data-title="Художественная литература с психологическим подтекстом" data-lead="Иногда роман говорит больше, чем учебник">
-          <div class="section-head">
-            <input class="section-select" type="checkbox" aria-label="Выбрать раздел 14" />
-            <div class="section-title-wrap"><h2 class="section-title">14. Художественная литература с психологическим подтекстом</h2></div>
-          </div>
-          <div class="section-tools">
-            <button type="button" data-print-section>Печать раздела</button>
-            <button type="button" data-copy-link>Ссылка</button>
-            <button type="button" data-select-section>Выбрать все книги</button>
-          </div>
-          <p class="section-lead">Иногда роман говорит больше, чем учебник</p>
+        <section class="section" id="s14">
+          <h2 class="section-title">14. Художественная литература с психологическим подтекстом</h2>
+<p class="section-lead">Иногда роман говорит больше, чем учебник</p>
           <ul class="books">
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Герман Гессе. «Сиддхартха»</p><p class="blurb">О долгом пути к себе — коротко и как притча.</p></div></li>
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Михаил Булгаков. «Мастер и Маргарита»</p><p class="blurb">О любви, свободе и цене выбора.</p></div></li>
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Фёдор Достоевский. «Преступление и наказание»</p><p class="blurb">Величайшее исследование вины и раскаяния в мировой литературе.</p></div></li>
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Антуан де Сент-Экзюпери. «Цитадель»</p><p class="blurb">Медленная и мудрая книга — как разговор с очень взрослым человеком.</p></div></li>
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Аглая Датешидзе. «Жила-была девочка»</p><p class="blurb">Психотерапевтическая сказка о взрослении внутренней девочки.</p></div></li>
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Оушен Вуонг. «Лишь краткий миг земной мы все прекрасны»</p><p class="blurb">О любви, травме и памяти — на грани прозы и поэзии.</p></div></li>
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Джон Грин. «Виноваты звезды»</p><p class="blurb">Про юность, болезнь и любовь — без сентиментальности.</p></div></li>
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Джоанн Гринберг. «Я никогда не обещала тебе сад из роз»</p><p class="blurb">Автобиографический роман о лечении психоза — глазами пациентки.</p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Герман Гессе. «Сиддхартха»</p><p class="blurb">О долгом пути к себе — коротко и как притча.</p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Михаил Булгаков. «Мастер и Маргарита»</p><p class="blurb">О любви, свободе и цене выбора.</p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Фёдор Достоевский. «Преступление и наказание»</p><p class="blurb">Величайшее исследование вины и раскаяния в мировой литературе.</p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Антуан де Сент-Экзюпери. «Цитадель»</p><p class="blurb">Медленная и мудрая книга — как разговор с очень взрослым человеком.</p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Аглая Датешидзе. «Жила-была девочка»</p><p class="blurb">Психотерапевтическая сказка о взрослении внутренней девочки.</p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Оушен Вуонг. «Лишь краткий миг земной мы все прекрасны»</p><p class="blurb">О любви, травме и памяти — на грани прозы и поэзии.</p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Джон Грин. «Виноваты звезды»</p><p class="blurb">Про юность, болезнь и любовь — без сентиментальности.</p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Джоанн Гринберг. «Я никогда не обещала тебе сад из роз»</p><p class="blurb">Автобиографический роман о лечении психоза — глазами пациентки.</p></div></li>
           </ul>
         </section>
 
-        <section class="topic" id="s15" data-title="Интернет-ресурсы" data-lead="Программы самопомощи — бесплатно и на русском">
-          <div class="section-head">
-            <input class="section-select" type="checkbox" aria-label="Выбрать раздел 15" />
-            <div class="section-title-wrap"><h2 class="section-title">15. Интернет-ресурсы</h2></div>
-          </div>
-          <div class="section-tools">
-            <button type="button" data-print-section>Печать раздела</button>
-            <button type="button" data-copy-link>Ссылка</button>
-            <button type="button" data-select-section>Выбрать все</button>
-          </div>
-          <p class="section-lead">Программы самопомощи — бесплатно и на русском</p>
+        <section class="section" id="s15">
+          <h2 class="section-title">15. Интернет-ресурсы</h2>
+<p class="section-lead">Программы самопомощи — бесплатно и на русском</p>
           <ul class="books resources">
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Программа самопомощи при тревоге и бессоннице</p><p class="blurb"><a href="https://www.mielenterveystalo.fi/ru">mielenterveystalo.fi/ru</a></p></div></li>
-            <li><input class="pick" type="checkbox" /><span class="mark">■</span><div><p class="title">Курс майндфулнесс</p><p class="blurb"><a href="https://palousemindfulness.com/ru">palousemindfulness.com/ru</a></p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Программа самопомощи при тревоге и бессоннице</p><p class="blurb"><a href="https://www.mielenterveystalo.fi/ru">mielenterveystalo.fi/ru</a></p></div></li>
+            <li><span class="mark">■</span><div><p class="title">Курс майндфулнесс</p><p class="blurb"><a href="https://palousemindfulness.com/ru">palousemindfulness.com/ru</a></p></div></li>
           </ul>
         </section>
 
@@ -938,320 +498,27 @@
           <p class="note">Если во время чтения что-то откликнется болью или тревогой — приносите это на встречу.</p>
           <p class="roles">врач-психотерапевт · психолог · сексолог</p>
         </footer>
+      
       </main>
-
-      <div class="mobile-dock ui-font" role="region" aria-label="Действия печати">
-        <button type="button" class="dock-status" id="openNavFromDock">Разделы</button>
-        <button type="button" class="btn-primary" id="printSelectedMobile">Печать выбранного</button>
-      </div>
     </div>
   </div>
 
-  <div class="toast" id="toast" role="status" aria-live="polite"></div>
-
   <script>
     (() => {
-      const topics = [...document.querySelectorAll(".topic")];
-      const toc = document.getElementById("toc");
-      const chips = document.getElementById("topicChips");
-      const status = document.getElementById("status");
-      const mobileStatus = document.getElementById("mobileStatus");
-      const dockStatus = document.getElementById("openNavFromDock");
-      const search = document.getElementById("search");
-      const mobileSearch = document.getElementById("mobileSearch");
-      const toast = document.getElementById("toast");
-      let toastTimer;
+      const sections = [...document.querySelectorAll("section.section")];
+      const links = [...document.querySelectorAll("#toc a")];
 
-      const shortTitles = {
-        s1: "Основы",
-        s2: "Тревога",
-        s3: "Депрессия",
-        s4: "Отношения",
-        s5: "Созависимость",
-        s6: "Сексуальность",
-        s7: "Самооценка",
-        s8: "Травма",
-        s9: "Утрата",
-        s10: "Родительство",
-        s11: "Психосоматика",
-        s12: "Смысл",
-        s13: "Сон",
-        s14: "Худож. лит.",
-        s15: "Ресурсы"
-      };
-
-      function showToast(message) {
-        toast.textContent = message;
-        toast.classList.add("show");
-        clearTimeout(toastTimer);
-        toastTimer = setTimeout(() => toast.classList.remove("show"), 1800);
-      }
-
-      function syncSectionFromBooks(section) {
-        const picks = [...section.querySelectorAll(".pick")];
-        const sectionBox = section.querySelector(".section-select");
-        const all = picks.every((p) => p.checked);
-        const some = picks.some((p) => p.checked);
-        sectionBox.checked = all && picks.length > 0;
-        sectionBox.indeterminate = some && !all;
-      }
-
-      function setSectionBooks(section, checked) {
-        section.querySelectorAll(".pick").forEach((p) => { p.checked = checked; });
-        syncSectionFromBooks(section);
-        updateStatus();
-      }
-
-      function updateStatus() {
-        const sections = topics.filter((t) => t.querySelector(".section-select").checked).length;
-        const books = document.querySelectorAll(".pick:checked").length;
-        let text = "Ничего не выбрано";
-        let dock = "Разделы";
-        if (sections || books) {
-          const parts = [];
-          if (sections) parts.push(`разд. ${sections}`);
-          if (books) parts.push(`книг ${books}`);
-          text = `Выбрано — ${parts.join(", ")}`;
-          dock = `Выбрано: ${books || sections}`;
-        }
-        status.textContent = text;
-        if (mobileStatus) mobileStatus.textContent = text;
-        if (dockStatus) dockStatus.textContent = dock;
-      }
-
-      function syncTocChecks() {
-        topics.forEach((section) => {
-          const tocBox = toc.querySelector(`input[data-section="${section.id}"]`);
-          if (!tocBox) return;
-          const sectionBox = section.querySelector(".section-select");
-          tocBox.checked = sectionBox.checked;
-          tocBox.indeterminate = sectionBox.indeterminate;
-        });
-      }
-
-      function setNavOpen(open) {
-        document.body.classList.toggle("nav-open", open);
-      }
-
-      topics.forEach((section, index) => {
-        const n = index + 1;
-        const title = section.dataset.title;
-        const li = document.createElement("li");
-        li.innerHTML = `
-          <input type="checkbox" data-section="${section.id}" aria-label="Выбрать: ${title}" />
-          <a href="#${section.id}">${n}. ${title}</a>
-        `;
-        toc.appendChild(li);
-
-        const chip = document.createElement("a");
-        chip.href = `#${section.id}`;
-        chip.textContent = `${n}. ${shortTitles[section.id] || title}`;
-        chip.dataset.target = section.id;
-        chips.appendChild(chip);
-
-        const sectionBox = section.querySelector(".section-select");
-        const tocBox = li.querySelector("input");
-
-        sectionBox.addEventListener("change", () => {
-          setSectionBooks(section, sectionBox.checked);
-          syncTocChecks();
-        });
-
-        tocBox.addEventListener("change", () => {
-          setSectionBooks(section, tocBox.checked);
-          syncTocChecks();
-        });
-
-        section.querySelectorAll(".pick").forEach((pick) => {
-          pick.addEventListener("change", () => {
-            syncSectionFromBooks(section);
-            syncTocChecks();
-            updateStatus();
-          });
-        });
-
-        section.querySelector("[data-print-section]").addEventListener("click", () => {
-          printSections([section], true);
-        });
-
-        section.querySelector("[data-copy-link]").addEventListener("click", async () => {
-          const url = `${location.origin}${location.pathname}#${section.id}`;
-          try {
-            await navigator.clipboard.writeText(url);
-            showToast("Ссылка на раздел скопирована");
-          } catch {
-            prompt("Скопируйте ссылку:", url);
-          }
-        });
-
-        section.querySelector("[data-select-section]").addEventListener("click", () => {
-          setSectionBooks(section, true);
-          syncTocChecks();
-          showToast("Раздел добавлен к печати");
-        });
-      });
-
-      function preparePrintSelection(sections, forceAllBooksInSection) {
-        document.body.classList.add("print-selection");
-        topics.forEach((t) => t.classList.remove("print-include"));
-        document.querySelectorAll(".books li").forEach((li) => li.classList.remove("print-include"));
-
-        sections.forEach((section) => {
-          section.classList.add("print-include");
-          const picks = [...section.querySelectorAll(".pick")];
-          const anyBook = picks.some((p) => p.checked);
-          picks.forEach((pick) => {
-            if (forceAllBooksInSection || !anyBook || pick.checked) {
-              pick.closest("li").classList.add("print-include");
-            }
-          });
-        });
-      }
-
-      function clearPrintMode() {
-        document.body.classList.remove("print-selection", "print-books-only");
-        topics.forEach((t) => t.classList.remove("print-include"));
-        document.querySelectorAll(".books li").forEach((li) => li.classList.remove("print-include"));
-      }
-
-      function printSections(sections, forceAllBooksInSection) {
-        if (!sections.length) {
-          showToast("Сначала выберите раздел или книги");
-          return;
-        }
-        preparePrintSelection(sections, forceAllBooksInSection);
-        window.print();
-      }
-
-      function printSelected() {
-        const selectedSections = topics.filter((section) => {
-          const sectionOn = section.querySelector(".section-select").checked;
-          const anyBook = [...section.querySelectorAll(".pick")].some((p) => p.checked);
-          return sectionOn || anyBook;
-        });
-        printSections(selectedSections, false);
-      }
-
-      document.getElementById("printSelected").addEventListener("click", printSelected);
-      document.getElementById("printSelectedMobile").addEventListener("click", () => {
-        clearPrintMode();
-        window.print();
-      });
-      document.getElementById("printAll").addEventListener("click", () => {
-        clearPrintMode();
-        window.print();
-      });
-      document.getElementById("clearSelection").addEventListener("click", () => {
-        topics.forEach((section) => setSectionBooks(section, false));
-        syncTocChecks();
-        showToast("Выбор сброшен");
-      });
-
-      window.addEventListener("afterprint", clearPrintMode);
-
-      const toggleNav = document.getElementById("toggleNav");
-      const closeNav = document.getElementById("closeNav");
-      const openNavFromDock = document.getElementById("openNavFromDock");
-      const toggleSearch = document.getElementById("toggleSearch");
-
-      if (toggleNav) {
-        toggleNav.addEventListener("click", () => {
-          setNavOpen(!document.body.classList.contains("nav-open"));
-        });
-      }
-      if (closeNav) closeNav.addEventListener("click", () => setNavOpen(false));
-      if (openNavFromDock) openNavFromDock.addEventListener("click", () => setNavOpen(true));
-
-      if (toggleSearch) {
-        toggleSearch.addEventListener("click", () => {
-          const open = document.body.classList.toggle("search-open");
-          toggleSearch.classList.toggle("is-on", open);
-          if (open) mobileSearch.focus();
-        });
-      }
-
-      document.addEventListener("click", (e) => {
-        if (!document.body.classList.contains("nav-open")) return;
-        if (e.target.closest(".sidebar") || e.target.closest("#toggleNav") || e.target.closest("#openNavFromDock")) return;
-        setNavOpen(false);
-      });
-      toc.addEventListener("click", (e) => {
-        if (e.target.tagName === "A") setNavOpen(false);
-      });
-      chips.addEventListener("click", () => setNavOpen(false));
-
-      const originalText = new Map();
-      document.querySelectorAll(".title, .blurb, .section-title, .section-lead").forEach((el) => {
-        originalText.set(el, el.innerHTML);
-      });
-
-      function escapeRegExp(s) {
-        return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-      }
-
-      function runSearch(raw, source) {
-        const q = raw.trim().toLowerCase();
-        if (source !== search) search.value = raw;
-        if (source !== mobileSearch) mobileSearch.value = raw;
-
-        originalText.forEach((html, el) => { el.innerHTML = html; });
-
-        let visibleBooks = 0;
-        topics.forEach((section) => {
-          let sectionHit = false;
-          section.querySelectorAll(".books li").forEach((li) => {
-            const text = li.textContent.toLowerCase();
-            const hit = !q || text.includes(q) || section.dataset.title.toLowerCase().includes(q);
-            li.classList.toggle("book-hidden", Boolean(q) && !hit);
-            if (hit) {
-              sectionHit = true;
-              visibleBooks += 1;
-              if (q) {
-                const re = new RegExp(`(${escapeRegExp(q)})`, "ig");
-                li.querySelectorAll(".title, .blurb").forEach((el) => {
-                  el.innerHTML = originalText.get(el).replace(re, "<mark class=\"hit\">$1</mark>");
-                });
-              }
-            }
-          });
-          section.style.display = !q || sectionHit ? "" : "none";
-          section.classList.toggle("is-dimmed", Boolean(q) && !sectionHit);
-        });
-        document.body.classList.toggle("no-results", Boolean(q) && visibleBooks === 0);
-      }
-
-      search.addEventListener("input", () => runSearch(search.value, search));
-      mobileSearch.addEventListener("input", () => runSearch(mobileSearch.value, mobileSearch));
-
-      const tocLinks = [...toc.querySelectorAll("li")];
-      const chipLinks = [...chips.querySelectorAll("a")];
       const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
           if (!entry.isIntersecting) return;
           const id = entry.target.id;
-          tocLinks.forEach((li) => {
-            li.classList.toggle("active", li.querySelector("a")?.getAttribute("href") === `#${id}`);
+          links.forEach((link) => {
+            link.parentElement.classList.toggle("active", link.getAttribute("href") === `#${id}`);
           });
-          chipLinks.forEach((chip) => {
-            const on = chip.dataset.target === id;
-            chip.classList.toggle("active", on);
-            if (on) chip.scrollIntoView({ inline: "center", block: "nearest", behavior: "smooth" });
-          });
-          topics.forEach((t) => t.classList.toggle("is-target", t.id === id));
         });
       }, { rootMargin: "-20% 0px -65% 0px", threshold: 0.01 });
 
-      topics.forEach((t) => observer.observe(t));
-
-      if (location.hash) {
-        const target = document.querySelector(location.hash);
-        if (target) {
-          target.classList.add("is-target");
-          setTimeout(() => target.scrollIntoView({ behavior: "smooth", block: "start" }), 50);
-        }
-      }
-
-      updateStatus();
+      sections.forEach((section) => observer.observe(section));
     })();
   </script>
 </body>
